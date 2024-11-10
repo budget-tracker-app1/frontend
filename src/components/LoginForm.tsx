@@ -14,10 +14,12 @@ import { REQUEST } from "../services";
 import { ENDPOINTS } from "../services/servicesList";
 import { STORAGE } from "../utils/storage";
 import { EStorage, EStorageKeys } from "../models";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
   const toast = useToast();
 
   const { mutate } = useMutation({
@@ -39,6 +41,7 @@ const LoginForm: React.FC = () => {
       });
       setUsername('');
       setPassword('');
+      navigate("/dashboard");
     },
     onError: (error) => {
       console.error('Error fetching data:', error);

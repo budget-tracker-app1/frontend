@@ -11,26 +11,26 @@ type TStorageType = {
   key: EStorageKeys;
 };
 export const STORAGE = ({ type, key }: TStorageType): TStorageMethods => {
-  const decisionStorage = {
+  const storage = {
     [EStorage.LOCAL]: [window.localStorage],
     [EStorage.SESSION]: [window.sessionStorage],
     [EStorage.ALL]: [window.localStorage, window.sessionStorage]
   };
   function set(data) {
-    for (const item of decisionStorage[type]) {
+    for (const item of storage[type]) {
       item.setItem(key, JSON.stringify(data));
     }
   }
   function get() {
-    return JSON.parse(decisionStorage[type][0].getItem(key));
+    return JSON.parse(storage[type][0].getItem(key));
   }
   function remove() {
-    for (const item of decisionStorage[type]) {
+    for (const item of storage[type]) {
       item.removeItem(key);
     }
   }
   function clear() {
-    for (const item of decisionStorage[type]) {
+    for (const item of storage[type]) {
       item.clear();
     }
   }
