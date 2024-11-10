@@ -1,25 +1,28 @@
-import React, { useState } from 'react';
-import { Box, Button } from '@chakra-ui/react';
-import RegisterForm from "./components/RegisterForm";
-import LoginForm from "./components/LoginForm";
+import React from 'react';
 import { QueryClient, QueryClientProvider } from "react-query";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import BudgetTracker from "./components/BudgetTracker";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AuthPage from "./components/AuthPage";
 
 const App: React.FC = () => {
   const queryClient = new QueryClient();
-  const [isRegistering, setIsRegistering] = useState(false);
-
-  const toggleForm = () => {
-    setIsRegistering((prev) => !prev);
-  };
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Box p={4}>
-        <Button onClick={toggleForm} mb={4}>
-          {isRegistering ? 'Switch to Login' : 'Switch to Register'}
-        </Button>
-        {isRegistering ? <RegisterForm /> : <LoginForm />}
-      </Box>
+      <Router>
+        <Routes>
+          <Route path="/" element={<AuthPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <BudgetTracker />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Router>
     </QueryClientProvider>
   );
 };
