@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { Box, Text, VStack } from '@chakra-ui/react';
 import useBudgetTrackerStore from '../store';
+import useGetAllCategories from "../hooks/useGetAllCategories";
 
 const BudgetTracker: React.FC = () => {
-  const { categories, fetchCategories, budgets, fetchBudgets, transactions, fetchTransactions } = useBudgetTrackerStore();
+  const { getAllCategories } = useGetAllCategories();
+  const { categories, budgets, transactions } = useBudgetTrackerStore();
 
   useEffect(() => {
-    fetchCategories();
-    fetchBudgets();
-    fetchTransactions();
-  }, [fetchCategories, fetchBudgets, fetchTransactions]);
+    getAllCategories();
+  }, [getAllCategories]);
 
   return (
     <VStack spacing={4}>
