@@ -1,27 +1,29 @@
 import { create } from 'zustand';
+import { CategoryType } from "../components/Categories";
+import { ICategory } from "../components/Categories/CategoryColumn";
 
 interface BudgetTrackerState {
   categories: any[];
-  budgets: any[];
-  transactions: any[];
-  fetchBudgets: () => Promise<void>;
-  fetchTransactions: () => Promise<void>;
+  newCategoryStatus: CategoryType | null;
+  categoryObj: ICategory;
+
+  setCategories: (data: any[]) => void;
+  setNewCategoryStatus: (data: CategoryType | null) => void;
+  setCategoryObj: (data: ICategory) => void;
 }
 
 const useBudgetTrackerStore = create<BudgetTrackerState>((set) => ({
   categories: [],
-  budgets: [],
-  transactions: [],
-  fetchBudgets: async () => {
-    const response = await fetch('/api/budgets');
-    const data = await response.json();
-    set({ budgets: data });
+  newCategoryStatus: null,
+  categoryObj: {
+    type: "",
+    name: "",
+    color: null,
   },
-  fetchTransactions: async () => {
-    const response = await fetch('/api/transactions');
-    const data = await response.json();
-    set({ transactions: data });
-  },
+
+  setCategories: (data) => set(() => ({ categories: data })),
+  setNewCategoryStatus: (data) => set(() => ({ newCategoryStatus: data })),
+  setCategoryObj: (data) => set(() => ({ categoryObj: data })),
 }));
 
 export default useBudgetTrackerStore;
