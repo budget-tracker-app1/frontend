@@ -7,5 +7,6 @@ export const ENDPOINTS = {
   REGISTER: () => `${BASE_URL + API_VERSION}/register`,
   CATEGORIES: {
     getAll: () => `${BASE_URL + API_VERSION}/categories`,
+    post: () => `${BASE_URL + API_VERSION}/categories`,
   }
 };
