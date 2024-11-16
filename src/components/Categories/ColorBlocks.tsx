@@ -2,8 +2,8 @@ import { Box, Wrap, WrapItem } from "@chakra-ui/react"
 import React, { useEffect } from 'react'
 import useBudgetTrackerStore from "../../store";
 
-const ColorBlocks = () => {
-  const { categoryObj, setCategoryObj } = useBudgetTrackerStore();
+const ColorBlocks = ({expenseCategories}: any) => {
+  const { categoryObj, setCategoryObj, exactCategoryId } = useBudgetTrackerStore();
 
   const colors = [
     "#0088FE", "#00C49F", "#FFBB28", "#FF8042",
@@ -13,10 +13,20 @@ const ColorBlocks = () => {
     "#DB7093", "#66CDAA", "#BDB76B", "#A52A2A"
   ];
 
+  const filteredColors = colors.filter(
+    (color) =>
+      !expenseCategories.some(
+        (category: any) =>
+          category.color === color && category.id !== exactCategoryId
+      )
+  );
+
+  const expenseColor = filteredColors.find((color: string) => color === categoryObj.color);
+
   useEffect(() => {
     setCategoryObj({
       ...categoryObj,
-      color: colors[0],
+      color: expenseColor ? expenseColor : filteredColors[0],
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -31,7 +41,7 @@ const ColorBlocks = () => {
   return (
     <>
       <Wrap spacing={2} w="100%" maxW="100%" justify="center">
-        {colors.map((color) => (
+        {filteredColors.map((color) => (
           <WrapItem key={color}>
             <Box
               key={color}
