@@ -1,11 +1,15 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { EStorage, EStorageKeys } from "../models";
 import { STORAGE } from "../utils/storage";
+
+interface ErrorResponse {
+  error: string;
+}
 
 const getToken = () => STORAGE({ type: EStorage.SESSION, key: EStorageKeys.BUDGET_APP_CREDS }).get()?.access_token;
 
 // Utility function to check token expiration
-const isTokenExpired = (token) => {
+const isTokenExpired = (token: any) => {
   const tokenParts = token.split('.');
   if (tokenParts.length === 3) {
     const payload = JSON.parse(atob(tokenParts[1]));
@@ -35,7 +39,8 @@ const refreshAccessToken = async () => {
     
     return access_token;
   } catch (error) {
-    if (error.response?.data?.error === 'Refresh token expired') {
+    const axiosError = error as AxiosError<ErrorResponse>;
+    if (axiosError.response?.data?.error === 'Refresh token expired') {
       STORAGE({ type: EStorage.SESSION, key: EStorageKeys.BUDGET_APP_CREDS }).clear();
       window.history.pushState({}, '', '/');
       window.dispatchEvent(new PopStateEvent('popstate'));
@@ -77,16 +82,16 @@ export const REQUEST = {
   get(url: string) {
     return instance.get(url).then((res) => res.data);
   },
-  post(url: string, data?, config = {}) {
+  post(url: string, data?: any, config = {}) {
     return instance.post(url, data, config);
   },
   delete(url: string) {
     return instance.delete(url);
   },
-  patch(url: string, data) {
+  patch(url: string, data: any) {
     return instance.patch(url, data);
   },
-  put(url: string, data) {
+  put(url: string, data: any) {
     return instance.put(url, data);
   }
 };

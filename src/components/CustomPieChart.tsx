@@ -13,9 +13,9 @@ const rawData = [
 ];
 
 // Function to aggregate data by label
-const aggregateData = (data) => {
+const aggregateData = (data: any[]) => {
   const aggregated = data.reduce((acc, curr) => {
-    const existing = acc.find((item) => item.label === curr.label);
+    const existing = acc.find((item: any) => item.label === curr.label);
     if (existing) {
       existing.value += curr.value;
     } else {
@@ -27,14 +27,14 @@ const aggregateData = (data) => {
 };
 
 const data = aggregateData(rawData);
-const totalValue = data.reduce((sum, entry) => sum + entry.value, 0);
+const totalValue = data.reduce((sum: any, entry: any) => sum + entry.value, 0);
 
 const CustomPieChart: React.FC = () => {
   const [activeLabel, setActiveLabel] = useState<string | null>(null);
   const [activeSum, setActiveSum] = useState<number | null>(null);
   const [hovered, setHovered] = useState<boolean>(false);
 
-  const handleMouseEnter = (data) => {
+  const handleMouseEnter = (data: any) => {
     setHovered(true);
     setActiveLabel(data.label);
     const totalSum = data.value;
@@ -78,11 +78,11 @@ const CustomPieChart: React.FC = () => {
           }}
           dataKey="value"
           isAnimationActive={false}
-          activeShape={null}
+          activeShape={undefined}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          {data.map((entry, index) => (
+          {data.map((entry: any, index: number) => (
             <Cell
               key={`cell-${index}`}
               fill={entry.color}
