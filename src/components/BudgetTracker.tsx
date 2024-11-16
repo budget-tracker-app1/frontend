@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import useGetAllCategories from "../hooks/useGetAllCategories";
 import Categories from "./Categories";
 import CustomPieChart from "./CustomPieChart";
+import Budgets from "./Budgets";
 
 const theme = createTheme();
 
@@ -53,9 +54,7 @@ const BudgetTracker: React.FC = () => {
           overflow="auto"
           bgColor="lightgray"
         >
-          <Text fontSize="xl" fontWeight="bold">
-            Budgets
-          </Text>
+          <Budgets />
         </Box>
         <Box
           flex="1"
@@ -67,7 +66,7 @@ const BudgetTracker: React.FC = () => {
           bgColor="lightskyblue"
         >
           <Text fontSize="xl" fontWeight="bold">
-            Transactions
+            History
           </Text>
         </Box>
       </Flex>

@@ -10,7 +10,7 @@ const useGetAllCategories = () => {
     mutationFn: () =>
       REQUEST.get(ENDPOINTS.CATEGORIES.getAll()),
     onSuccess: (response) => {
-      console.log(response);
+      // console.log(response);
 
       setCategories(response);
     },
