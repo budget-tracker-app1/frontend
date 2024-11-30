@@ -2,7 +2,7 @@ import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons"
 import { IconButton, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
 import React, { ChangeEvent, useEffect, useRef } from 'react'
 import useBudgetTrackerStore from "../../store";
-import usePutCategory from "../../hooks/usePutCategory";
+import usePutCategory from "../../hooks/http/usePutCategory";
 
 interface CategoryInputProps {
   category: any;
@@ -23,7 +23,7 @@ const CategoryInput = ({category, bgcolor}: CategoryInputProps) => {
 
   useEffect(() => {
     if (inputRef.current) {
-      inputRef.current.value = category.name;
+      inputRef.current.value = category.name ? category.name : '';
     }
   }, [category.name]);
 

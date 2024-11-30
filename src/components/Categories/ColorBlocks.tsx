@@ -1,9 +1,12 @@
 import { Box, Wrap, WrapItem } from "@chakra-ui/react"
 import React, { useEffect } from 'react'
 import useBudgetTrackerStore from "../../store";
+import useCategories from "../../hooks/general/useCategories";
 
-const ColorBlocks = ({expenseCategories}: any) => {
+const ColorBlocks = () => {
   const { categoryObj, setCategoryObj, exactCategoryId } = useBudgetTrackerStore();
+
+  const { expenseCategories } = useCategories();
 
   const colors = [
     "#0088FE", "#00C49F", "#FFBB28", "#FF8042",

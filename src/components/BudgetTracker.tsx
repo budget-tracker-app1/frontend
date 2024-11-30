@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Box, Flex, Text, VStack } from '@chakra-ui/react';
 import { ThemeProvider, createTheme } from "@mui/material";
-import useGetAllCategories from "../hooks/useGetAllCategories";
+import useGetAllCategories from "../hooks/http/useGetAllCategories";
 import Categories from "./Categories";
 import CustomPieChart from "./CustomPieChart";
 import Budgets from "./Budgets";
