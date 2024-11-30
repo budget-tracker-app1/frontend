@@ -3,8 +3,9 @@ import React from 'react'
 import { CategoryType } from ".";
 import useBudgetTrackerStore from "../../store";
 import ColorBlocks from "./ColorBlocks";
-import usePostCategory from "../../hooks/usePostCategory";
+import usePostCategory from "../../hooks/http/usePostCategory";
 import CategoryInput from "./CategoryInput";
+import useCategories from "../../hooks/general/useCategories";
 
 export interface ICategory {
   type: string;
@@ -17,12 +18,10 @@ interface CategoryColumnProps {
 }
 
 const CategoryColumn = ({ type }: CategoryColumnProps) => {
-  const { categories, newCategoryStatus, setNewCategoryStatus, categoryObj, setCategoryObj, exactCategoryId } = useBudgetTrackerStore();
-  const { saveNewCategory } = usePostCategory();
+  const { newCategoryStatus, setNewCategoryStatus, categoryObj, setCategoryObj, exactCategoryId } = useBudgetTrackerStore();
 
-  const accountCategories = categories.filter((category) => category.type === CategoryType.ACCOUNT);
-  const incomeCategories = categories.filter((category) => category.type === CategoryType.INCOME);
-  const expenseCategories = categories.filter((category) => category.type === CategoryType.EXPENSE);
+  const { saveNewCategory } = usePostCategory();
+  const { accountCategories, incomeCategories, expenseCategories } = useCategories();
 
   const addNewCategory = (e: React.MouseEvent) => {
     const { name } = e.target as HTMLButtonElement;
@@ -59,7 +58,7 @@ const CategoryColumn = ({ type }: CategoryColumnProps) => {
             category={category}
             bgcolor={"red.100"}
           />
-          {type === CategoryType.EXPENSE && exactCategoryId === category.id && <ColorBlocks expenseCategories={expenseCategories} type={type} />}
+          {type === CategoryType.EXPENSE && exactCategoryId === category.id && <ColorBlocks />}
         </>
       ))}
       {type === newCategoryStatus &&
@@ -68,7 +67,7 @@ const CategoryColumn = ({ type }: CategoryColumnProps) => {
             category={{}}
             bgcolor={type === CategoryType.EXPENSE ? "red.100" : type === CategoryType.INCOME ? "green.100" : type === CategoryType.ACCOUNT ? "gray.300" : "white"}
           />
-          {type === CategoryType.EXPENSE && <ColorBlocks expenseCategories={expenseCategories} type={type} />}
+          {type === CategoryType.EXPENSE && <ColorBlocks />}
         </>
       }
       <Button
