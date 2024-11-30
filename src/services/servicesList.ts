@@ -9,5 +9,10 @@ export const ENDPOINTS = {
     getAll: () => `${BASE_URL + API_VERSION}/categories`,
     post: () => `${BASE_URL + API_VERSION}/categories`,
     put: (id: number) => `${BASE_URL + API_VERSION}/categories/${id}`,
+  },
+  TRANSACTIONS: {
+    INCOME: {
+      post: () => `${BASE_URL + API_VERSION}/transactions/income`,
+    }
   }
 };
