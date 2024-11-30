@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query';
-import { REQUEST } from "../services";
-import { ENDPOINTS } from "../services/servicesList";
-import useBudgetTrackerStore from "../store";
+import { REQUEST } from "../../services";
+import { ENDPOINTS } from "../../services/servicesList";
+import useBudgetTrackerStore from "../../store";
 
 const useGetAllCategories = () => {
   const { setCategories } = useBudgetTrackerStore();
