@@ -1,19 +1,26 @@
 import React, { useEffect } from 'react';
-import { Box, Flex, Text, VStack } from '@chakra-ui/react';
+import { Box, Flex, VStack } from '@chakra-ui/react';
 import { ThemeProvider, createTheme } from "@mui/material";
 import useGetAllCategories from "../hooks/http/useGetAllCategories";
 import Categories from "./Categories";
 import CustomPieChart from "./CustomPieChart";
 import Budgets from "./Budgets";
+import useGetAllTransactions from "../hooks/http/useGetAllTransactions";
+import History from "./History";
 
 const theme = createTheme();
 
 const BudgetTracker: React.FC = () => {
   const { getAllCategories } = useGetAllCategories();
+  const { getAllTransactions } = useGetAllTransactions();
 
   useEffect(() => {
     getAllCategories();
   }, [getAllCategories]);
+
+  useEffect(() => {
+    getAllTransactions();
+  }, [getAllTransactions]);
 
   return (
     <VStack spacing={4}>
@@ -65,9 +72,7 @@ const BudgetTracker: React.FC = () => {
           overflow="auto"
           bgColor="lightskyblue"
         >
-          <Text fontSize="xl" fontWeight="bold">
-            History
-          </Text>
+          <History />
         </Box>
       </Flex>
     </VStack>

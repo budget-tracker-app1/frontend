@@ -2,9 +2,10 @@ import { AddIcon, MinusIcon, RepeatIcon } from "@chakra-ui/icons"
 import { Button, HStack, Text, VStack } from "@chakra-ui/react"
 import React from 'react'
 import useBudgetTrackerStore from "../../store";
-import usePostIncome from "../../hooks/http/usePostIncome";
-import TransactionForm from "./TransactionForm";
-import useCategories from "../../hooks/general/useCategories";
+import IncomeForm from "./IncomeForm";
+import TransferForm from "./TransferForm";
+import ExpenseForm from "./ExpenseForm";
+import usePostTransaction from "../../hooks/http/usePostTransaction";
 
 export enum TransactionType {
   INCOME = "INCOME",
@@ -12,39 +13,30 @@ export enum TransactionType {
   EXPENSE = "EXPENSE",
 }
 
-export interface IIncomeTransaction {
-  account: string;
-  income: string;
+export interface ITransaction {
+  id?: number;
+  leftCategory: string | null;
+  rightCategory: string | null;
+  type: TransactionType | null;
   amount: number;
   description: string | null;
   category_id: number | null;
-}
-
-export interface IExpenseTransaction {
-  account: string;
-  expense: string;
-  amount: number;
-  description: string | null;
-  category_id: number | null;
-}
-
-export interface ITransferTransaction {
-  from_account: string;
-  to_account: string;
-  amount: number;
-  description: string | null;
-  category_id: number | null;
+  status: 'SUCCESS' | 'FAILED';
+  createdAt: Date;
 }
 
 const Transactions = () => {
-  const { newTransactionStatus, setNewTransactionStatus } = useBudgetTrackerStore();
-  const { accountCategories, incomeCategories, expenseCategories } = useCategories();
-  const { saveIncomeTransaction } = usePostIncome();
+  const { newTransactionStatus, setNewTransactionStatus, transactionObj, setTransactionObj } = useBudgetTrackerStore();
+  const { saveTransaction } = usePostTransaction();
 
   const addNewTransactionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!newTransactionStatus) {
       setNewTransactionStatus(e.currentTarget.name as TransactionType);
+      setTransactionObj({
+        ...transactionObj,
+        type: e.currentTarget.name as TransactionType,
+      });
     }
   }
 
@@ -63,18 +55,19 @@ const Transactions = () => {
           boxShadow="md"
           bgColor="#FFFFFF"
         >
-          <TransactionForm
-            firstPlaceholder={newTransactionStatus === TransactionType.TRANSFER ? "From account" : "Select account"}
-            secondPlaceholder={newTransactionStatus === TransactionType.INCOME ? "Select income source" : newTransactionStatus === TransactionType.TRANSFER ? "To account" : newTransactionStatus === TransactionType.EXPENSE ? "Select expense source" : ""}
-            selectBox={newTransactionStatus === TransactionType.TRANSFER ? accountCategories : newTransactionStatus === TransactionType.INCOME ? incomeCategories : newTransactionStatus === TransactionType.EXPENSE ? expenseCategories : []}
-          />
+          {newTransactionStatus === TransactionType.INCOME ?
+            <IncomeForm /> :
+          newTransactionStatus === TransactionType.TRANSFER ?
+            <TransferForm /> :
+          newTransactionStatus === TransactionType.EXPENSE ?
+            <ExpenseForm /> :
+          null}
 
           <HStack spacing={4} width="100%">
             <Button
               colorScheme="blue"
               width="50%"
-              onClick={() => saveIncomeTransaction()}
-              // onClick={() => console.log(incomeTransactionObj)}
+              onClick={() => saveTransaction()}
             >
               Save
             </Button>
