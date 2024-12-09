@@ -11,8 +11,7 @@ export const ENDPOINTS = {
     put: (id: number) => `${BASE_URL + API_VERSION}/categories/${id}`,
   },
   TRANSACTIONS: {
-    INCOME: {
-      post: () => `${BASE_URL + API_VERSION}/transactions/income`,
-    }
+    getAll: () => `${BASE_URL + API_VERSION}/transactions`,
+    post: () => `${BASE_URL + API_VERSION}/transactions`,
   }
 };
