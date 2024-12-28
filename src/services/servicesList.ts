@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8081';
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 export const API_VERSION = '/api/v1';
 

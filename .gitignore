@@ -32,3 +32,6 @@ target/
 *.yml
 *.yaml
 logs/
+
+# Environment files
+.env
