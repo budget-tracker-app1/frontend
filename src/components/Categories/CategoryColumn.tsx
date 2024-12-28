@@ -8,9 +8,12 @@ import CategoryInput from "./CategoryInput";
 import useCategories from "../../hooks/general/useCategories";
 
 export interface ICategory {
-  type: string;
-  name: string;
-  color: string | null;
+  id?: number;
+  name: string | null;
+  type: CategoryType | null;
+  userId?: number;
+  color?: string;
+  balance?: number;
 }
 
 interface CategoryColumnProps {

@@ -19,9 +19,20 @@ const MyAccounts = () => {
             borderRadius="md"
           >
             <Text fontSize="md">{account.name}</Text>
-            <Text fontSize="md" fontWeight="bold">${account.balance?.toFixed(2)}</Text>
+            <Text fontSize="md" fontWeight="bold">{account.balance?.toFixed(2)} $</Text>
           </HStack>
         ))}
+        <HStack
+          width="100%"
+          justifyContent="space-between"
+          p={3}
+          bg="green.400"
+          color="white"
+          borderRadius="md"
+        >
+          <Text fontSize="md" fontWeight="bold">Total balance</Text>
+          <Text fontSize="md" fontWeight="bold">{"0.00"} $</Text>
+        </HStack>
       </VStack>
     </>
   )

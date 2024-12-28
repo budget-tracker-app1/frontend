@@ -12,7 +12,7 @@ const TransferForm = () => {
     const { value } = e.target;
     
     if (index === "first") {
-      const categoryId = accountCategories.find(category => category.name === value)?.id;
+      const categoryId = accountCategories.find(category => category.name === value)?.id ?? null;
       setTransactionObj({
         ...transactionObj as ITransaction,
         leftCategory: value,

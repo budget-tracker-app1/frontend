@@ -23,6 +23,11 @@ export interface ITransaction {
   category_id: number | null;
   status: 'SUCCESS' | 'FAILED';
   createdAt: Date;
+  user_id?: number;
+}
+
+export interface ITransactionWithColor extends ITransaction {
+  color?: string;
 }
 
 const Transactions = () => {

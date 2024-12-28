@@ -4,7 +4,7 @@ import { ICategory } from "../components/Categories/CategoryColumn";
 import { ITransaction, TransactionType } from "../components/Transactions";
 
 interface BudgetTrackerState {
-  categories: any[];
+  categories: ICategory[];
   transactions: ITransaction[];
   newCategoryStatus: CategoryType | null;
   categoryObj: ICategory;
@@ -12,7 +12,7 @@ interface BudgetTrackerState {
   newTransactionStatus: TransactionType | null;
   transactionObj: ITransaction;
 
-  setCategories: (data: any[]) => void;
+  setCategories: (data: ICategory[]) => void;
   setTransactions: (data: ITransaction[]) => void;
   setNewCategoryStatus: (data: CategoryType | null) => void;
   setCategoryObj: (data: ICategory) => void;
@@ -26,9 +26,8 @@ const useBudgetTrackerStore = create<BudgetTrackerState>((set) => ({
   transactions: [],
   newCategoryStatus: null,
   categoryObj: {
-    type: "",
+    type: null,
     name: "",
-    color: null,
   },
   exactCategoryId: null,
   newTransactionStatus: null,
