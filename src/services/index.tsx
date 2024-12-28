@@ -24,7 +24,7 @@ const refreshAccessToken = async () => {
   try {
     const refreshToken = STORAGE({ type: EStorage.SESSION, key: EStorageKeys.BUDGET_APP_CREDS }).get()?.refresh_token;
     const response = await axios.post(
-      'http://localhost:8081/api/v1/refresh',
+      `${process.env.REACT_APP_API_URL}/api/v1/refresh`,
       refreshToken
     );
     
