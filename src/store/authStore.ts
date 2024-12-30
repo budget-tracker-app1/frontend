@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { ENDPOINTS } from "../services/servicesList";
 
 interface AuthState {
     register: (username: string, password: string) => Promise<void>;
@@ -7,7 +8,7 @@ interface AuthState {
 export const useAuthStore = create<AuthState>((set) => ({
     register: async (username, password) => {
         try {
-            const response = await fetch('http://localhost:8081/api/v1/register', {
+            const response = await fetch(ENDPOINTS.REGISTER(), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

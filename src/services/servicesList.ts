@@ -1,6 +1,5 @@
 const BASE_URL = process.env.REACT_APP_API_URL;
-
-export const API_VERSION = '/api/v1';
+const API_VERSION = '/api/v1';
 
 export const ENDPOINTS = {
   LOGIN: () => `${BASE_URL + API_VERSION}/login`,
