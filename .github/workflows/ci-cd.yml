@@ -1,0 +1,36 @@
+name: Build and Deploy React Application
+
+on:
+  push:
+    branches:
+      - main  # Trigger deployment only on the main branch
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy to Render
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18 # Use the Node.js version compatible with your project
+
+      # Step 3: Install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Step 4: Build the React app
+      - name: Build React App
+        run: npm run build
+
+      # Step 5: Deploy to Render
+      - name: Deploy to Render (Frontend)
+        run: |
+          curl -X POST https://api.render.com/deploy -H "Authorization: Bearer $RENDER_API_KEY" \
+          -d '{"service":"budget-tracker-frontend"}'
