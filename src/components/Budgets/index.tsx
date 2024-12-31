@@ -8,7 +8,7 @@ const Budgets = () => {
   const handleLogout = () => {
     localStorage.clear();
     sessionStorage.clear();
-    window.location.href = '/';
+    window.location.replace('/');
   };
 
   return (
