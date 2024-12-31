@@ -6,6 +6,7 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 
 const Budgets = () => {
   const handleLogout = () => {
+    localStorage.clear();
     sessionStorage.clear();
     window.location.href = '/';
   };

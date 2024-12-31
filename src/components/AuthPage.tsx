@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Box, Button } from '@chakra-ui/react';
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
@@ -12,14 +12,18 @@ const AuthPage: React.FC = () => {
     setIsRegistering((prev) => !prev);
   };
 
-  const token =
-    localStorage.getItem('budget_app_creds') ||
-    sessionStorage.getItem('budget_app_creds');
+  const token = useMemo(() => {
+    return (
+      localStorage.getItem("budget_app_creds") ||
+      sessionStorage.getItem("budget_app_creds")
+    );
+  }, []);  
 
   useEffect(() => {
     if (token) {
       navigate("/dashboard", { replace: true });
     } else {
+      navigate("/");
     }
   }, [token, navigate]);
 
