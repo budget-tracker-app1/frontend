@@ -3,6 +3,11 @@ import { CategoryType } from "../components/Categories";
 import { ICategory } from "../components/Categories/CategoryColumn";
 import { ITransaction, TransactionType } from "../components/Transactions";
 
+export enum EModalName {
+  INFO = "INFO",
+  TUTORIAL = "TUTORIAL",
+}
+
 interface BudgetTrackerState {
   categories: ICategory[];
   transactions: ITransaction[];
@@ -11,6 +16,9 @@ interface BudgetTrackerState {
   exactCategoryId: number | null;
   newTransactionStatus: TransactionType | null;
   transactionObj: ITransaction;
+  isModalOpen: boolean;
+  modalName: EModalName | null;
+  startTutorial: boolean;
 
   setCategories: (data: ICategory[]) => void;
   setTransactions: (data: ITransaction[]) => void;
@@ -19,6 +27,9 @@ interface BudgetTrackerState {
   setExactCategoryId: (data: number | null) => void;
   setNewTransactionStatus: (data: TransactionType | null) => void;
   setTransactionObj: (data: ITransaction) => void;
+  setIsModalOpen: (data: boolean) => void;
+  setModalName: (data: EModalName | null) => void;
+  setStartTutorial: (data: boolean) => void;
 }
 
 const useBudgetTrackerStore = create<BudgetTrackerState>((set) => ({
@@ -41,6 +52,9 @@ const useBudgetTrackerStore = create<BudgetTrackerState>((set) => ({
     status: 'FAILED',
     createdAt: new Date(),
   },
+  isModalOpen: false,
+  modalName: null,
+  startTutorial: false,
 
   setCategories: (data) => set(() => ({ categories: data })),
   setTransactions: (data) => set(() => ({ transactions: data })),
@@ -49,6 +63,9 @@ const useBudgetTrackerStore = create<BudgetTrackerState>((set) => ({
   setExactCategoryId: (data) => set(() => ({ exactCategoryId: data })),
   setNewTransactionStatus: (data) => set(() => ({ newTransactionStatus: data })),
   setTransactionObj: (data) => set(() => ({ transactionObj: data })),
+  setIsModalOpen: (data) => set(() => ({ isModalOpen: data })),
+  setModalName: (data) => set(() => ({ modalName: data })),
+  setStartTutorial: (data) => set(() => ({ startTutorial: data })),
 }));
 
 export default useBudgetTrackerStore;
