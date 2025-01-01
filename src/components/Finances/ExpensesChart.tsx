@@ -49,7 +49,7 @@ const ExpensesChart: React.FC = () => {
     <>
       <VStack spacing={4} width="100%" maxW="400px">
         <Text fontSize="xl" fontWeight="bold">Expenses Chart</Text>
-        <PieChart
+        {activeSum && <PieChart
           width={600}
           height={300}
         >
@@ -122,7 +122,7 @@ const ExpensesChart: React.FC = () => {
             </text>
           </>
 
-        </PieChart>
+        </PieChart>}
       </VStack>
     </>
   );

@@ -1,7 +1,7 @@
 import { Button, Text, VStack } from "@chakra-ui/react"
 import React from 'react'
 import { CategoryType } from ".";
-import useBudgetTrackerStore from "../../store";
+import useBudgetTrackerStore, { EModalName } from "../../store";
 import ColorBlocks from "./ColorBlocks";
 import usePostCategory from "../../hooks/http/usePostCategory";
 import CategoryInput from "./CategoryInput";
@@ -18,15 +18,20 @@ export interface ICategory {
 
 interface CategoryColumnProps {
   type: CategoryType;
+  id: string;
 }
 
-const CategoryColumn = ({ type }: CategoryColumnProps) => {
-  const { newCategoryStatus, setNewCategoryStatus, categoryObj, setCategoryObj, exactCategoryId } = useBudgetTrackerStore();
+const CategoryColumn = ({ type, id }: CategoryColumnProps) => {
+  const { newCategoryStatus, setNewCategoryStatus, categoryObj, setCategoryObj, exactCategoryId, setIsModalOpen, setModalName } = useBudgetTrackerStore();
 
   const { saveNewCategory } = usePostCategory();
   const { accountCategories, incomeCategories, expenseCategories } = useCategories();
 
   const addNewCategory = (e: React.MouseEvent) => {
+    if (!localStorage.getItem('dontShowModal')) {
+      setModalName(EModalName.INFO);
+      setIsModalOpen(true);
+    }
     const { name } = e.target as HTMLButtonElement;
     if (name === type && !newCategoryStatus) {
       setNewCategoryStatus(name);
@@ -74,6 +79,7 @@ const CategoryColumn = ({ type }: CategoryColumnProps) => {
         </>
       }
       <Button
+        id={id}
         colorScheme="teal"
         variant="solid"
         name={type}
