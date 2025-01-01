@@ -5,6 +5,8 @@ import useCategories from "../../hooks/general/useCategories";
 const MyAccounts = () => {
   const { accountCategories } = useCategories();
 
+  const totalBalance = accountCategories.reduce((sum, account) => sum + (account.balance ?? 0), 0);
+
   return (
     <>
       <VStack spacing={4} width="100%" maxW="400px">
@@ -31,7 +33,7 @@ const MyAccounts = () => {
           borderRadius="md"
         >
           <Text fontSize="md" fontWeight="bold">Total balance</Text>
-          <Text fontSize="md" fontWeight="bold">{"0.00"} $</Text>
+          <Text fontSize="md" fontWeight="bold">{totalBalance.toFixed(2)} $</Text>
         </HStack>
       </VStack>
     </>
