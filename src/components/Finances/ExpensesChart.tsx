@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { PieChart, Pie, Cell, Legend, PieLabelRenderProps } from "recharts";
 import useTransactions from "../../hooks/general/useTransactions";
 import { ITransactionWithColor } from "../Transactions";
+import { TutorialTargets } from "../../data/tourSteps";
 
 // Function to aggregate data by label
 const aggregateData = (data: ITransactionWithColor[]) => {
@@ -48,7 +49,16 @@ const ExpensesChart: React.FC = () => {
   return (
     <>
       <VStack spacing={4} width="100%" maxW="400px">
-        <Text fontSize="xl" fontWeight="bold">Expenses Chart</Text>
+        <Text
+          id={TutorialTargets.ExpensesChartTitle}
+          fontSize="xl"
+          fontWeight="bold"
+          bgColor="#F1F1F1"
+          borderRadius="md"
+          padding={"3px 6px"}
+        >
+          Expenses Chart
+        </Text>
         {activeSum && <PieChart
           width={600}
           height={300}

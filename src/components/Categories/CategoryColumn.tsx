@@ -6,6 +6,7 @@ import ColorBlocks from "./ColorBlocks";
 import usePostCategory from "../../hooks/http/usePostCategory";
 import CategoryInput from "./CategoryInput";
 import useCategories from "../../hooks/general/useCategories";
+import { TutorialTargets } from "../../data/tourSteps";
 
 export interface ICategory {
   id?: number;
@@ -18,7 +19,7 @@ export interface ICategory {
 
 interface CategoryColumnProps {
   type: CategoryType;
-  id: string;
+  id: TutorialTargets;
 }
 
 const CategoryColumn = ({ type, id }: CategoryColumnProps) => {

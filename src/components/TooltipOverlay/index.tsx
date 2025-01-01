@@ -25,7 +25,7 @@ const TooltipOverlay: React.FC<TooltipOverlayProps> = ({
   useEffect(() => {
     if (currentStep < steps.length) {
       const { target } = steps[currentStep];
-      const element = document.querySelector(target) as HTMLElement | null;
+      const element = document.querySelector('#' + target) as HTMLElement | null;
       if (element) {
         setTargetElement(element);
 
@@ -68,13 +68,19 @@ const TooltipOverlay: React.FC<TooltipOverlayProps> = ({
           position="absolute"
           zIndex="1100"
           bg="transparent"
-          borderRadius="md"
-          top={`${targetElement.offsetTop}px`}
-          left={`${targetElement.offsetLeft}px`}
-          width={`${targetElement.offsetWidth}px`}
-          height={`${targetElement.offsetHeight}px`}
+          borderRadius={getComputedStyle(targetElement).borderRadius}
           border="2px solid rgba(255, 215, 0, 0.8)"
           cursor="pointer"
+          top={`${
+            targetElement.getBoundingClientRect().top +
+            window.scrollY
+          }px`}
+          left={`${
+            targetElement.getBoundingClientRect().left +
+            window.scrollX
+          }px`}
+          width={`${targetElement.getBoundingClientRect().width}px`}
+          height={`${targetElement.getBoundingClientRect().height}px`}
         />
       )}
 
@@ -101,22 +107,24 @@ const TooltipOverlay: React.FC<TooltipOverlayProps> = ({
 
           {/* Buttons */}
           <HStack spacing={4} mt={4} justify="center">
-            <Button
-              size="sm"
-              colorScheme="red"
-              variant="outline"
-              flex="1"
-              onClick={onSkip}
-            >
-              Skip
-            </Button>
+            {currentStep !== steps.length - 1 &&
+              <Button
+                size="sm"
+                colorScheme="red"
+                variant="outline"
+                flex="1"
+                onClick={onSkip}
+              >
+                Skip
+              </Button>
+            }
             <Button
               size="sm"
               colorScheme="teal"
               flex="1"
               onClick={onNext}
             >
-              Next {currentStep + 1}/{steps.length}
+              {currentStep === steps.length - 1 ? "Understood" : `${"Next " + (currentStep + 1) + "/" + steps.length}`}
             </Button>
           </HStack>
         </Box>

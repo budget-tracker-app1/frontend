@@ -3,6 +3,7 @@ import { Box, VStack, Text, Badge, Flex, Button } from "@chakra-ui/react";
 import { RepeatIcon } from "@chakra-ui/icons";
 import useSortableData from "../../hooks/general/useSortableData";
 import { ITransaction } from "../Transactions";
+import { TutorialTargets } from "../../data/tourSteps";
 
 enum Column {
   TYPE = "type",
@@ -62,16 +63,19 @@ const History: React.FC = () => {
     >
       <Text fontSize="xl" fontWeight="bold">History</Text>
       <Flex justify="space-between" mb={4} gap={4}>
-        <Button onClick={() => handleColumnClick(Column.TYPE)} rightIcon={renderSortIcon(Column.TYPE)}>
-          Sort by Type
-        </Button>
-        <Button onClick={() => handleColumnClick(Column.STATUS)} rightIcon={renderSortIcon(Column.STATUS)}>
-          Sort by Status
-        </Button>
-        <Button onClick={() => handleColumnClick(Column.DATE)} rightIcon={renderSortIcon(Column.DATE)}>
-          Sort by Date
-        </Button>
+        <Box id={TutorialTargets.SortButtonGroup} display="flex" flexDir="row" gap={4} borderRadius="8px">
+          <Button onClick={() => handleColumnClick(Column.TYPE)} rightIcon={renderSortIcon(Column.TYPE)}>
+            Sort by Type
+          </Button>
+          <Button onClick={() => handleColumnClick(Column.STATUS)} rightIcon={renderSortIcon(Column.STATUS)}>
+            Sort by Status
+          </Button>
+          <Button onClick={() => handleColumnClick(Column.DATE)} rightIcon={renderSortIcon(Column.DATE)}>
+            Sort by Date
+          </Button>
+        </Box>
         <Button
+          id={TutorialTargets.ResetAllSortingButton}
           onClick={() => cancelSorting()}
           rightIcon={sortingCriteria.length > 0 ? <RepeatIcon /> : undefined}
           isDisabled={sortingCriteria.length === 0}

@@ -6,6 +6,7 @@ import IncomeForm from "./IncomeForm";
 import TransferForm from "./TransferForm";
 import ExpenseForm from "./ExpenseForm";
 import usePostTransaction from "../../hooks/http/usePostTransaction";
+import { TutorialTargets } from "../../data/tourSteps";
 
 export enum TransactionType {
   INCOME = "INCOME",
@@ -89,6 +90,7 @@ const Transactions = () => {
 
         <HStack spacing={4}>
           <Button
+            id={TutorialTargets.IncomeTransactionButton}
             variant="solid"
             borderRadius="50%"
             border="5px solid green"
@@ -107,6 +109,7 @@ const Transactions = () => {
             <AddIcon boxSize={8} />
           </Button>
           <Button
+            id={TutorialTargets.TransferTransactionButton}
             variant="solid"
             borderRadius="25%"
             border="5px solid gray"
@@ -125,6 +128,7 @@ const Transactions = () => {
             <RepeatIcon boxSize={8} />
           </Button>
           <Button
+            id={TutorialTargets.ExpenseTransactionButton}
             variant="solid"
             borderRadius="50%"
             border="5px solid red"

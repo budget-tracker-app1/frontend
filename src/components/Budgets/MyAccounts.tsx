@@ -1,6 +1,7 @@
 import { HStack, Text, VStack } from "@chakra-ui/react"
 import React from 'react'
 import useCategories from "../../hooks/general/useCategories";
+import { TutorialTargets } from "../../data/tourSteps";
 
 const MyAccounts = () => {
   const { accountCategories } = useCategories();
@@ -25,6 +26,7 @@ const MyAccounts = () => {
           </HStack>
         ))}
         <HStack
+          id={TutorialTargets.TotalBalance}
           width="100%"
           justifyContent="space-between"
           p={3}

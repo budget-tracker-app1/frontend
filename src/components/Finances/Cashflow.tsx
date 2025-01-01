@@ -3,6 +3,7 @@ import React from 'react'
 import useTransactions from "../../hooks/general/useTransactions"
 import { ITransactionWithColor, TransactionType } from "../Transactions";
 import Group from "./Group";
+import { TutorialTargets } from "../../data/tourSteps";
 
 const Cashflow = () => {
   const { successfulIncomeTransactions, successfulExpenseTransactions } = useTransactions();
@@ -37,7 +38,17 @@ const Cashflow = () => {
   return (
     <>
       <VStack spacing={4} width="100%" maxW="400px" gap={0}>
-        <Text fontSize="xl" fontWeight="bold" mb="1rem">Cashflow</Text>
+        <Text
+          id={TutorialTargets.CashflowTitle}
+          fontSize="xl"
+          fontWeight="bold"
+          mb="1rem"
+          bgColor="#F1F1F1"
+          borderRadius="md"
+          padding={"3px 6px"}
+        >
+          Cashflow
+        </Text>
         {groupedIncomeTransactions.map(({ category, transactions }) => (
           <Group
             key={category}
