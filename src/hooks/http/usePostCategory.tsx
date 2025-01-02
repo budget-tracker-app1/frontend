@@ -1,10 +1,12 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { REQUEST } from "../../services";
 import { ENDPOINTS } from "../../services/servicesList";
 import useBudgetTrackerStore from "../../store";
+import { ICategory } from "../../components/Categories/CategoryColumn";
 
 const usePostCategory = () => {
-  const { categoryObj, categories, setCategories, setNewCategoryStatus } = useBudgetTrackerStore();
+  const queryClient = useQueryClient();
+  const { categoryObj, setNewCategoryStatus } = useBudgetTrackerStore();
 
   const { mutate: saveNewCategory } = useMutation({
     mutationFn: () =>
@@ -13,10 +15,8 @@ const usePostCategory = () => {
       // console.log(data);
 
       setNewCategoryStatus(null);
-      setCategories([
-        ...categories,
-        data,
-      ]);
+      const currentCategories = (queryClient.getQueryData<ICategory[]>('categories') || []);
+      queryClient.setQueryData('categories', [...currentCategories, data]);
     },
     onError: (error) => {
       console.error('Error fetching data:', error);

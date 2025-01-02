@@ -1,12 +1,16 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { REQUEST } from "../../services";
 import { ENDPOINTS } from "../../services/servicesList";
 import useBudgetTrackerStore from "../../store";
-import useGetAllTransactions from "./useGetAllTransactions";
+import useFetchAllCategories from "./useFetchAllCategories";
+import useFetchAllTransactions from "./useFetchAllTransactions";
 
 const usePutCategory = () => {
-  const { categories, setCategories, categoryObj, setCategoryObj, setExactCategoryId } = useBudgetTrackerStore();
-  const { getAllTransactions } = useGetAllTransactions();
+  const queryClient = useQueryClient();
+
+  const { categoryObj, setCategoryObj, setExactCategoryId } = useBudgetTrackerStore();
+  const { refetchCategories, categories } = useFetchAllCategories();
+  const { refetchTransactions } = useFetchAllTransactions();
 
   const { mutate: saveEditedCategory } = useMutation({
     mutationFn: (id: number) =>
@@ -24,11 +28,14 @@ const usePutCategory = () => {
         balance: undefined
       });
 
-      const updatedCategories = categories.map((category) =>
-        category.id === data.id ? data : category
-      );
-      setCategories(updatedCategories);
-      getAllTransactions();
+      if (categories) {
+        const updatedCategories = categories.map((category) =>
+          category.id === data.id ? data : category
+        );
+        queryClient.setQueryData("categories", updatedCategories);
+      }
+      refetchCategories();
+      refetchTransactions();
     },
     onError: (error) => {
       console.error('Error fetching data:', error);

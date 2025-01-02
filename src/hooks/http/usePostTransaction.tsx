@@ -2,13 +2,13 @@ import { useMutation } from 'react-query';
 import { REQUEST } from "../../services";
 import { ENDPOINTS } from "../../services/servicesList";
 import useBudgetTrackerStore from "../../store";
-import useGetAllCategories from "./useGetAllCategories";
-import useGetAllTransactions from "./useGetAllTransactions";
+import useFetchAllCategories from "./useFetchAllCategories";
+import useFetchAllTransactions from "./useFetchAllTransactions";
 
 const usePostTransaction = () => {
   const { setNewTransactionStatus, transactionObj } = useBudgetTrackerStore();
-  const { getAllCategories } = useGetAllCategories();
-  const { getAllTransactions } = useGetAllTransactions();
+  const { refetchCategories } = useFetchAllCategories();
+  const { refetchTransactions } = useFetchAllTransactions();
 
   const { mutate: saveTransaction } = useMutation({
     mutationFn: () =>
@@ -17,12 +17,11 @@ const usePostTransaction = () => {
       // console.log(data);
       
       setNewTransactionStatus(null);
-      getAllCategories();
-      getAllTransactions();
+      refetchCategories();
+      refetchTransactions();
     },
     onError: (error) => {
       console.error('Error fetching data:', error);
-      getAllTransactions();
     },
   });
 
