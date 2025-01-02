@@ -12,7 +12,7 @@ const IncomeForm = () => {
     const { value } = e.target;
     
     if (index === "first") {
-      const categoryId = accountCategories.find(category => category.name === value)?.id ?? null;
+      const categoryId = accountCategories?.find(category => category.name === value)?.id ?? null;
       setTransactionObj({
         ...transactionObj as ITransaction,
         leftCategory: value,

@@ -18,7 +18,7 @@ const ColorBlocks = () => {
 
   const filteredColors = colors.filter(
     (color) =>
-      !expenseCategories.some(
+      !expenseCategories?.some(
         (category: any) =>
           category.color === color && category.id !== exactCategoryId
       )

@@ -1,10 +1,10 @@
 import { ITransaction, ITransactionWithColor, TransactionType } from "../../components/Transactions";
-import useBudgetTrackerStore from "../../store";
+import useFetchAllTransactions from "../http/useFetchAllTransactions";
 import useCategories from "./useCategories";
 
 const useTransactions = () => {
-  const { transactions } = useBudgetTrackerStore();
   const { expenseCategories } = useCategories();
+  const { transactions } = useFetchAllTransactions();
 
   const successfulExpenseTransactions: ITransactionWithColor[] = transactions
     .filter(
@@ -13,7 +13,7 @@ const useTransactions = () => {
         transaction.status === "SUCCESS"
     )
     .map((transaction) => {
-      const category = expenseCategories.find(
+      const category = expenseCategories?.find(
         (category) => category.name === transaction.rightCategory
       );
 

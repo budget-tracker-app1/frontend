@@ -46,21 +46,21 @@ const CategoryColumn = ({ type, id }: CategoryColumnProps) => {
   return (
     <VStack spacing={4} width="100%" maxW="400px">
       <Text fontSize="xl" fontWeight="bold">{type === CategoryType.INCOME ? "Incomes" : type === CategoryType.EXPENSE ? "Expenses" : type === CategoryType.ACCOUNT ? "Accounts" : ""}</Text>
-      {type === CategoryType.ACCOUNT && accountCategories.map((category) => (
+      {type === CategoryType.ACCOUNT && accountCategories?.map((category) => (
         <CategoryInput
           key={category.id}
           category={category}
           bgcolor={"gray.300"}
         />
       ))}
-      {type === CategoryType.INCOME && incomeCategories.map((category) => (
+      {type === CategoryType.INCOME && incomeCategories?.map((category) => (
         <CategoryInput
           key={category.id}
           category={category}
           bgcolor={"green.100"}
         />
       ))}
-      {type === CategoryType.EXPENSE && expenseCategories.map((category) => (
+      {type === CategoryType.EXPENSE && expenseCategories?.map((category) => (
         <>
           <CategoryInput
             key={category.id}
@@ -90,11 +90,11 @@ const CategoryColumn = ({ type, id }: CategoryColumnProps) => {
           ||
           (exactCategoryId !== null)
           ||
-          (type === CategoryType.ACCOUNT && accountCategories.length >= 10)
+          (type === CategoryType.ACCOUNT && accountCategories && accountCategories.length >= 10)
           ||
-          (type === CategoryType.INCOME && incomeCategories.length >= 10)
+          (type === CategoryType.INCOME && incomeCategories && incomeCategories.length >= 10)
           ||
-          (type === CategoryType.EXPENSE && expenseCategories.length >= 10)
+          (type === CategoryType.EXPENSE && expenseCategories && expenseCategories.length >= 10)
         }
       >
         {type === newCategoryStatus ? "Save" : "Add"} {type === CategoryType.INCOME ? "income" : type === CategoryType.EXPENSE ? "expense" : type === CategoryType.ACCOUNT ? "account" : ""}

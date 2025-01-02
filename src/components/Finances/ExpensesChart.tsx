@@ -59,80 +59,82 @@ const ExpensesChart: React.FC = () => {
         >
           Expenses Chart
         </Text>
-        {activeSum && <PieChart
-          width={600}
-          height={300}
-        >
-          <circle
-            cx="50%"
-            cy="50%"
-            r={60}
-            fill="#FFFFFF"
-            style={{
-              transition: "fill 0.3s ease-in-out",
-              fill: hovered ? "grey" : "#FFFFFF",
-            }}
-          />
-
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            outerRadius={80}
-            innerRadius={40}
-            labelLine
-            dataKey="amount"
-            label={({ payload }: PieLabelRenderProps) => {
-              if (!payload) return '';
-              const percentage = ((payload.amount / +totalValue) * 100).toFixed(2);
-              return `${payload.rightCategory}: (${percentage}%)`;
-            }}
-            isAnimationActive={false}
-            activeShape={undefined}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+        {+totalValue &&
+          <PieChart
+            width={600}
+            height={300}
           >
-            {data.map((entry: ITransactionWithColor) => (
-              <Cell
-                key={`cell-${entry.id}`}
-                fill={entry.color}
-                tabIndex={-1}
-                style={{ outline: "none" }}
-              />
-            ))}
-          </Pie>
-          <Legend />
-
-          <>
-            <text
-              x="50%"
-              y="45%"
-              textAnchor="middle"
-              dominantBaseline="middle"
+            <circle
+              cx="50%"
+              cy="50%"
+              r={60}
+              fill="#FFFFFF"
               style={{
-                fontSize: 12,
-                fontWeight: "bold",
-                fill: activeLabel && activeSum !== null ? "#FFFFFF" : "#000000",
+                transition: "fill 0.3s ease-in-out",
+                fill: hovered ? "grey" : "#FFFFFF",
               }}
-            >
-              {activeLabel && activeSum !== null ? activeLabel : "Total"}
-            </text>
-            <text
-              x="50%"
-              y="50%"
-              textAnchor="middle"
-              dominantBaseline="middle"
-              style={{
-                fontSize: 15,
-                fontWeight: "bold",
-                fill: activeLabel && activeSum !== null ? "#FFFFFF" : "#000000",
-              }}
-            >
-              {activeLabel && activeSum !== null ? activeSum.toFixed(2) : totalValue}
-            </text>
-          </>
+            />
 
-        </PieChart>}
+            <Pie
+              data={data}
+              cx="50%"
+              cy="50%"
+              outerRadius={80}
+              innerRadius={40}
+              labelLine
+              dataKey="amount"
+              label={({ payload }: PieLabelRenderProps) => {
+                if (!payload) return '';
+                const percentage = ((payload.amount / +totalValue) * 100).toFixed(2);
+                return `${payload.rightCategory}: (${percentage}%)`;
+              }}
+              isAnimationActive={false}
+              activeShape={undefined}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              {data.map((entry: ITransactionWithColor) => (
+                <Cell
+                  key={`cell-${entry.id}`}
+                  fill={entry.color}
+                  tabIndex={-1}
+                  style={{ outline: "none" }}
+                />
+              ))}
+            </Pie>
+            <Legend />
+
+            <>
+              <text
+                x="50%"
+                y="45%"
+                textAnchor="middle"
+                dominantBaseline="middle"
+                style={{
+                  fontSize: 12,
+                  fontWeight: "bold",
+                  fill: activeLabel && activeSum !== null ? "#FFFFFF" : "#000000",
+                }}
+              >
+                {activeLabel && activeSum !== null ? activeLabel : "Total"}
+              </text>
+              <text
+                x="50%"
+                y="50%"
+                textAnchor="middle"
+                dominantBaseline="middle"
+                style={{
+                  fontSize: 15,
+                  fontWeight: "bold",
+                  fill: activeLabel && activeSum !== null ? "#FFFFFF" : "#000000",
+                }}
+              >
+                {activeLabel && activeSum !== null ? activeSum.toFixed(2) : totalValue}
+              </text>
+            </>
+
+          </PieChart>
+        }
       </VStack>
     </>
   );

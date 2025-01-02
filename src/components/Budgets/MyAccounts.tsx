@@ -6,13 +6,13 @@ import { TutorialTargets } from "../../data/tourSteps";
 const MyAccounts = () => {
   const { accountCategories } = useCategories();
 
-  const totalBalance = accountCategories.reduce((sum, account) => sum + (account.balance ?? 0), 0);
+  const totalBalance = accountCategories?.reduce((sum, account) => sum + (account.balance ?? 0), 0);
 
   return (
     <>
       <VStack spacing={4} width="100%" maxW="400px">
         <Text fontSize="xl" fontWeight="bold">My accounts</Text>
-        {accountCategories.map((account) => (
+        {accountCategories?.map((account) => (
           <HStack
             key={account.id}
             width="100%"
@@ -35,7 +35,7 @@ const MyAccounts = () => {
           borderRadius="md"
         >
           <Text fontSize="md" fontWeight="bold">Total balance</Text>
-          <Text fontSize="md" fontWeight="bold">{totalBalance.toFixed(2)} $</Text>
+          <Text fontSize="md" fontWeight="bold">{totalBalance?.toFixed(2)} $</Text>
         </HStack>
       </VStack>
     </>
