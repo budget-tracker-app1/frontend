@@ -1,16 +1,24 @@
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from "@chakra-ui/react"
 import React, { useEffect } from 'react'
 import useBudgetTrackerStore, { EModalName } from "../../store";
+import useFetchAllCategories from "../../hooks/http/useFetchAllCategories";
+import useFetchAllTransactions from "../../hooks/http/useFetchAllTransactions";
 
 const Tutorial = () => {
-  const { categories, isModalOpen, setIsModalOpen, modalName, setModalName, setStartTutorial } = useBudgetTrackerStore();
+  const { isModalOpen, setIsModalOpen, modalName, setModalName, setStartTutorial } = useBudgetTrackerStore();
+  const { isCategoriesLoading, categories } = useFetchAllCategories();
+  const { isTransactionsLoading } = useFetchAllTransactions();
 
   useEffect(() => {
-    if (categories.length === 0) {
-      setIsModalOpen(true);
-      setModalName(EModalName.TUTORIAL);
+    if (categories?.length === 0 && !isCategoriesLoading && !isTransactionsLoading) {
+      const timer = setTimeout(() => {
+        setIsModalOpen(true);
+        setModalName(EModalName.TUTORIAL);
+      }, 1000);
+  
+      return () => clearTimeout(timer);
     }
-  }, [categories.length, setIsModalOpen, setModalName]);
+  }, [categories?.length, setIsModalOpen, setModalName, isCategoriesLoading, isTransactionsLoading]);  
 
   const handleModalClose = () => {
     setIsModalOpen(false);

@@ -3,8 +3,13 @@ import React from 'react'
 import MyAccounts from "./MyAccounts"
 import Transactions from "../Transactions"
 import { ArrowBackIcon } from "@chakra-ui/icons";
+import useFetchAllCategories from "../../hooks/http/useFetchAllCategories";
+import useFetchAllTransactions from "../../hooks/http/useFetchAllTransactions";
 
 const Budgets = () => {
+  const { isCategoriesLoading } = useFetchAllCategories();
+  const { isTransactionsLoading } = useFetchAllTransactions();
+
   const handleLogout = () => {
     localStorage.clear();
     sessionStorage.clear();
@@ -14,6 +19,7 @@ const Budgets = () => {
   return (
     <>
       <Text fontSize="xl" fontWeight="bold">Budgets</Text>
+      {!isCategoriesLoading && !isTransactionsLoading ?
       <HStack
         spacing={4}
         width="100%"
@@ -24,7 +30,8 @@ const Budgets = () => {
       >
         <MyAccounts />
         <Transactions />
-      </HStack>
+      </HStack> :
+      <Text>Loading...</Text>}
       <Box
         position="fixed"
         bottom="50px"

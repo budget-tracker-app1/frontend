@@ -4,6 +4,8 @@ import { RepeatIcon } from "@chakra-ui/icons";
 import useSortableData from "../../hooks/general/useSortableData";
 import { ITransaction } from "../Transactions";
 import { TutorialTargets } from "../../data/tourSteps";
+import useFetchAllCategories from "../../hooks/http/useFetchAllCategories";
+import useFetchAllTransactions from "../../hooks/http/useFetchAllTransactions";
 
 enum Column {
   TYPE = "type",
@@ -19,6 +21,9 @@ const History: React.FC = () => {
     renderSortIcon,
     cancelSorting,
   } = useSortableData<ITransaction>();
+
+  const { isCategoriesLoading } = useFetchAllCategories();
+  const { isTransactionsLoading } = useFetchAllTransactions();
 
   const getSuccessMessage = (transaction: any): string => {
     if (transaction.type === "INCOME") {
@@ -61,73 +66,77 @@ const History: React.FC = () => {
       pr={4}
       pl={4}
     >
-      <Text fontSize="xl" fontWeight="bold">History</Text>
-      <Flex justify="space-between" mb={4} gap={4}>
-        <Box id={TutorialTargets.SortButtonGroup} display="flex" flexDir="row" gap={4} borderRadius="8px">
-          <Button onClick={() => handleColumnClick(Column.TYPE)} rightIcon={renderSortIcon(Column.TYPE)}>
-            Sort by Type
+      <Text fontSize="xl" fontWeight="bold" mb="-0.5rem">History</Text>
+      {!isCategoriesLoading && !isTransactionsLoading ?
+      <>
+        <Flex justify="space-between" mb={4} gap={4}>
+          <Box id={TutorialTargets.SortButtonGroup} display="flex" flexDir="row" gap={4} borderRadius="8px">
+            <Button onClick={() => handleColumnClick(Column.TYPE)} rightIcon={renderSortIcon(Column.TYPE)}>
+              Sort by Type
+            </Button>
+            <Button onClick={() => handleColumnClick(Column.STATUS)} rightIcon={renderSortIcon(Column.STATUS)}>
+              Sort by Status
+            </Button>
+            <Button onClick={() => handleColumnClick(Column.DATE)} rightIcon={renderSortIcon(Column.DATE)}>
+              Sort by Date
+            </Button>
+          </Box>
+          <Button
+            id={TutorialTargets.ResetAllSortingButton}
+            onClick={() => cancelSorting()}
+            rightIcon={sortingCriteria.length > 0 ? <RepeatIcon /> : undefined}
+            isDisabled={sortingCriteria.length === 0}
+          >
+            Reset all sorting
           </Button>
-          <Button onClick={() => handleColumnClick(Column.STATUS)} rightIcon={renderSortIcon(Column.STATUS)}>
-            Sort by Status
-          </Button>
-          <Button onClick={() => handleColumnClick(Column.DATE)} rightIcon={renderSortIcon(Column.DATE)}>
-            Sort by Date
-          </Button>
-        </Box>
-        <Button
-          id={TutorialTargets.ResetAllSortingButton}
-          onClick={() => cancelSorting()}
-          rightIcon={sortingCriteria.length > 0 ? <RepeatIcon /> : undefined}
-          isDisabled={sortingCriteria.length === 0}
-        >
-          Reset all sorting
-        </Button>
-      </Flex>
-      {sortedData.map((each) => (
-        <Box
-          key={each.id}
-          width="full"
-          p={4}
-          shadow="sm"
-          borderWidth="1px"
-          borderRadius="md"
-          bg="white"
-        >
-          <Flex justify="space-between" align="center" mb={2}>
-            <Badge
-              colorScheme="gray"
-              fontSize="md"
-              px={3}
-              py={1}
-              borderRadius="md"
-            >
-              {each.type}
-            </Badge>
-            <Text color="gray.600" fontSize="sm">
-              Date: {new Date(each.createdAt).toLocaleDateString("en-GB")}
-            </Text>
-          </Flex>
+        </Flex>
+        {sortedData.map((each) => (
+          <Box
+            key={each.id}
+            width="full"
+            p={4}
+            shadow="sm"
+            borderWidth="1px"
+            borderRadius="md"
+            bg="white"
+          >
+            <Flex justify="space-between" align="center" mb={2}>
+              <Badge
+                colorScheme="gray"
+                fontSize="md"
+                px={3}
+                py={1}
+                borderRadius="md"
+              >
+                {each.type}
+              </Badge>
+              <Text color="gray.600" fontSize="sm">
+                Date: {new Date(each.createdAt).toLocaleDateString("en-GB")}
+              </Text>
+            </Flex>
 
-          <Flex justify="space-between" align="center" mb={2}>
-            <Badge
-              colorScheme={each.status === "SUCCESS" ? "green" : "red"}
-              px={2}
-              borderRadius="md"
-            >
-              {each.status}
-            </Badge>
-            <Text fontWeight="bold" fontSize="md" textAlign="right">
-              {each.status === "SUCCESS"
-                ? getSuccessMessage(each)
-                : getFailedMessage(each)}
-            </Text>
-          </Flex>
+            <Flex justify="space-between" align="center" mb={2}>
+              <Badge
+                colorScheme={each.status === "SUCCESS" ? "green" : "red"}
+                px={2}
+                borderRadius="md"
+              >
+                {each.status}
+              </Badge>
+              <Text fontWeight="bold" fontSize="md" textAlign="right">
+                {each.status === "SUCCESS"
+                  ? getSuccessMessage(each)
+                  : getFailedMessage(each)}
+              </Text>
+            </Flex>
 
-          {each.description && <Text color="gray.700" fontSize="sm" mt={2}>
-            Description: {each.description}
-          </Text>}
-        </Box>
-      ))}
+            {each.description && <Text color="gray.700" fontSize="sm" mt={2}>
+              Description: {each.description}
+            </Text>}
+          </Box>
+        ))}
+      </> :
+      <Text>Loading...</Text>}
     </VStack>
   );
 };
