@@ -9,8 +9,6 @@ export enum EModalName {
 }
 
 interface BudgetTrackerState {
-  categories: ICategory[];
-  transactions: ITransaction[];
   newCategoryStatus: CategoryType | null;
   categoryObj: ICategory;
   exactCategoryId: number | null;
@@ -20,8 +18,6 @@ interface BudgetTrackerState {
   modalName: EModalName | null;
   startTutorial: boolean;
 
-  setCategories: (data: ICategory[]) => void;
-  setTransactions: (data: ITransaction[]) => void;
   setNewCategoryStatus: (data: CategoryType | null) => void;
   setCategoryObj: (data: ICategory) => void;
   setExactCategoryId: (data: number | null) => void;
@@ -33,8 +29,6 @@ interface BudgetTrackerState {
 }
 
 const useBudgetTrackerStore = create<BudgetTrackerState>((set) => ({
-  categories: [],
-  transactions: [],
   newCategoryStatus: null,
   categoryObj: {
     type: null,
@@ -56,8 +50,6 @@ const useBudgetTrackerStore = create<BudgetTrackerState>((set) => ({
   modalName: null,
   startTutorial: false,
 
-  setCategories: (data) => set(() => ({ categories: data })),
-  setTransactions: (data) => set(() => ({ transactions: data })),
   setNewCategoryStatus: (data) => set(() => ({ newCategoryStatus: data })),
   setCategoryObj: (data) => set(() => ({ categoryObj: data })),
   setExactCategoryId: (data) => set(() => ({ exactCategoryId: data })),

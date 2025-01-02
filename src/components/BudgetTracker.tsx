@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Box, Flex, VStack } from '@chakra-ui/react';
-import useGetAllCategories from "../hooks/http/useGetAllCategories";
 import Categories from "./Categories";
 import Budgets from "./Budgets";
-import useGetAllTransactions from "../hooks/http/useGetAllTransactions";
 import History from "./History";
 import Finances from "./Finances";
 import TooltipOverlay from "./TooltipOverlay";
@@ -12,19 +10,9 @@ import Tutorial from "./Modal/Tutorial";
 import useBudgetTrackerStore from "../store";
 
 const BudgetTracker: React.FC = () => {
-  const { getAllCategories } = useGetAllCategories();
-  const { getAllTransactions } = useGetAllTransactions();
   const { startTutorial } = useBudgetTrackerStore()
 
   const [currentStep, setCurrentStep] = useState(0);
-
-  useEffect(() => {
-    getAllCategories();
-  }, [getAllCategories]);
-
-  useEffect(() => {
-    getAllTransactions();
-  }, [getAllTransactions]);
 
   const handleNext = () => {
     if (currentStep < steps.length - 1) {
