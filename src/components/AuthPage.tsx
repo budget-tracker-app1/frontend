@@ -1,15 +1,17 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Box, Button } from '@chakra-ui/react';
+import React, { useEffect, useMemo } from "react";
+import { Box, Button, Heading, Text } from "@chakra-ui/react";
+import './../App.css';
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
 
 const AuthPage: React.FC = () => {
-  const [isRegistering, setIsRegistering] = useState(false);
   const navigate = useNavigate();
+  const { isLoginPage, setIsLoginPage } = useAuthStore((state) => state);
 
   const toggleForm = () => {
-    setIsRegistering((prev) => !prev);
+    setIsLoginPage(!isLoginPage);
   };
 
   const token = useMemo(() => {
@@ -17,7 +19,7 @@ const AuthPage: React.FC = () => {
       localStorage.getItem("budget_app_creds") ||
       sessionStorage.getItem("budget_app_creds")
     );
-  }, []);  
+  }, []);
 
   useEffect(() => {
     if (token) {
@@ -29,11 +31,37 @@ const AuthPage: React.FC = () => {
 
   if (!token) {
     return (
-      <Box p={4}>
-        <Button onClick={toggleForm} mb={4}>
-          {isRegistering ? 'Switch to Login' : 'Switch to Register'}
+      <Box
+        position="relative"
+        height="100vh"
+        overflowY="hidden"
+        p={8}
+        background="linear-gradient(135deg, #a8ff78, #78ffd6)"
+      >
+        <Button onClick={toggleForm} position="absolute" boxShadow="lg" mb={4}>
+          {isLoginPage ? "Switch to Register" : "Switch to Login"}
         </Button>
-        {isRegistering ? <RegisterForm /> : <LoginForm />}
+        <Heading
+          as="h1"
+          position="absolute"
+          top="20%"
+          left="50%"
+          transform="translate(-50%)"
+          size="2xl"
+          mb={6}
+        >
+          Budget Tracker Demo
+        </Heading>
+        
+        {isLoginPage ? <LoginForm /> : <RegisterForm />}
+        <Text
+          position="absolute"
+          bottom="2%"
+          left="50%"
+          transform="translate(-50%)"
+        >
+          Assisted by AI
+        </Text>
       </Box>
     );
   }
