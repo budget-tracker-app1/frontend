@@ -27,7 +27,7 @@ export const steps = [
   },
   {
     target: TutorialTargets.ExpensesChartTitle,
-    message: "Once you add at least one expense category, a chart will appear showing your expenses. It will display the percentage of each category in relation to your total expenses.",
+    message: "Once you add at least one expense transaction, a chart will appear showing your expenses. It will display the percentage of each category in relation to your total expenses.",
   },
   {
     target: TutorialTargets.CashflowTitle,

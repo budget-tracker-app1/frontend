@@ -22,6 +22,7 @@ const usePostTransaction = () => {
     },
     onError: (error) => {
       console.error('Error fetching data:', error);
+      refetchTransactions();
     },
   });
 
