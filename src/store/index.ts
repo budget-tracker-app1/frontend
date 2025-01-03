@@ -6,6 +6,7 @@ import { ITransaction, TransactionType } from "../components/Transactions";
 export enum EModalName {
   INFO = "INFO",
   TUTORIAL = "TUTORIAL",
+  ABOUT = "ABOUT",
 }
 
 interface BudgetTrackerState {

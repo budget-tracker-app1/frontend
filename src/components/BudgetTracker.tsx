@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Box, Flex, VStack } from '@chakra-ui/react';
+import React, { useState } from "react";
+import { Box, Flex, VStack } from "@chakra-ui/react";
 import Categories from "./Categories";
 import Budgets from "./Budgets";
 import History from "./History";
@@ -7,10 +7,11 @@ import Finances from "./Finances";
 import TooltipOverlay from "./TooltipOverlay";
 import { steps } from "../data/tourSteps";
 import Tutorial from "./Modal/Tutorial";
-import useBudgetTrackerStore from "../store";
+import useBudgetTrackerStore, { EModalName } from "../store";
+import About from "./Modal/About";
 
 const BudgetTracker: React.FC = () => {
-  const { startTutorial } = useBudgetTrackerStore()
+  const { startTutorial, modalName } = useBudgetTrackerStore();
 
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -89,7 +90,8 @@ const BudgetTracker: React.FC = () => {
         />
       )}
 
-      {<Tutorial />}
+      <Tutorial />
+      {modalName === EModalName.ABOUT && <About />}
     </>
   );
 };
