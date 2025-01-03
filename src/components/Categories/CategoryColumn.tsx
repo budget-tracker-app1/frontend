@@ -1,5 +1,5 @@
 import { Button, Text, VStack } from "@chakra-ui/react"
-import React from 'react'
+import React, { Fragment } from 'react'
 import { CategoryType } from ".";
 import useBudgetTrackerStore, { EModalName } from "../../store";
 import ColorBlocks from "./ColorBlocks";
@@ -61,14 +61,13 @@ const CategoryColumn = ({ type, id }: CategoryColumnProps) => {
         />
       ))}
       {type === CategoryType.EXPENSE && expenseCategories?.map((category) => (
-        <>
+        <Fragment key={category.id}>
           <CategoryInput
-            key={category.id}
             category={category}
             bgcolor={"red.100"}
           />
           {type === CategoryType.EXPENSE && exactCategoryId === category.id && <ColorBlocks />}
-        </>
+        </Fragment>
       ))}
       {type === newCategoryStatus &&
         <>
