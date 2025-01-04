@@ -8,7 +8,7 @@ import useFetchAllTransactions from "./useFetchAllTransactions";
 const usePutCategory = () => {
   const queryClient = useQueryClient();
 
-  const { categoryObj, setCategoryObj, setExactCategoryId } = useBudgetTrackerStore();
+  const { categoryObj, setCategoryObj, setExactCategoryId, setHttpError } = useBudgetTrackerStore();
   const { refetchCategories, categories } = useFetchAllCategories();
   const { refetchTransactions } = useFetchAllTransactions();
 
@@ -18,6 +18,7 @@ const usePutCategory = () => {
     onSuccess: ({ data }) => {
       // console.log(data);
 
+      setHttpError(null);
       setExactCategoryId(null);
       setCategoryObj({
         id: undefined,
@@ -37,8 +38,9 @@ const usePutCategory = () => {
       refetchCategories();
       refetchTransactions();
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.error('Error fetching data:', error);
+      setHttpError(error.response?.data?.message || 'An error occurred');
     },
   });
 

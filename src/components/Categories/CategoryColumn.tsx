@@ -1,5 +1,5 @@
-import { Button, Text, VStack } from "@chakra-ui/react"
-import React, { Fragment } from 'react'
+import { Box, Button, Text, VStack } from "@chakra-ui/react";
+import React from "react";
 import { CategoryType } from ".";
 import useBudgetTrackerStore, { EModalName } from "../../store";
 import ColorBlocks from "./ColorBlocks";
@@ -23,13 +23,24 @@ interface CategoryColumnProps {
 }
 
 const CategoryColumn = ({ type, id }: CategoryColumnProps) => {
-  const { newCategoryStatus, setNewCategoryStatus, categoryObj, setCategoryObj, exactCategoryId, setIsModalOpen, setModalName } = useBudgetTrackerStore();
+  const {
+    newCategoryStatus,
+    setNewCategoryStatus,
+    categoryObj,
+    setCategoryObj,
+    exactCategoryId,
+    setIsModalOpen,
+    setModalName,
+    httpError,
+    setHttpError,
+  } = useBudgetTrackerStore();
 
   const { saveNewCategory } = usePostCategory();
-  const { accountCategories, incomeCategories, expenseCategories } = useCategories();
+  const { accountCategories, incomeCategories, expenseCategories } =
+    useCategories();
 
   const addNewCategory = (e: React.MouseEvent) => {
-    if (!localStorage.getItem('dontShowModal')) {
+    if (!localStorage.getItem("dontShowModal")) {
       setModalName(EModalName.INFO);
       setIsModalOpen(true);
     }
@@ -40,66 +51,119 @@ const CategoryColumn = ({ type, id }: CategoryColumnProps) => {
         ...categoryObj,
         type: name,
       });
+      setHttpError(null);
     }
   };
 
   return (
     <VStack spacing={4} width="100%" maxW="400px">
-      <Text fontSize="xl" fontWeight="bold">{type === CategoryType.INCOME ? "Incomes" : type === CategoryType.EXPENSE ? "Expenses" : type === CategoryType.ACCOUNT ? "Accounts" : ""}</Text>
-      {type === CategoryType.ACCOUNT && accountCategories?.map((category) => (
-        <CategoryInput
-          key={category.id}
-          category={category}
-          bgcolor={"gray.300"}
-        />
-      ))}
-      {type === CategoryType.INCOME && incomeCategories?.map((category) => (
-        <CategoryInput
-          key={category.id}
-          category={category}
-          bgcolor={"green.100"}
-        />
-      ))}
-      {type === CategoryType.EXPENSE && expenseCategories?.map((category) => (
-        <Fragment key={category.id}>
-          <CategoryInput
-            category={category}
-            bgcolor={"red.100"}
-          />
-          {type === CategoryType.EXPENSE && exactCategoryId === category.id && <ColorBlocks />}
-        </Fragment>
-      ))}
-      {type === newCategoryStatus &&
-        <>
+      <Text fontSize="xl" fontWeight="bold">
+        {type === CategoryType.INCOME
+          ? "Incomes"
+          : type === CategoryType.EXPENSE
+          ? "Expenses"
+          : type === CategoryType.ACCOUNT
+          ? "Accounts"
+          : ""}
+      </Text>
+      {type === CategoryType.ACCOUNT &&
+        accountCategories?.map((category) => (
+          <Box key={category.id}>
+            <CategoryInput
+              key={category.id}
+              category={category}
+              bgcolor={"gray.300"}
+            />
+            {httpError && category.id === exactCategoryId && (
+              <Text color="red.500" fontSize="sm" mb="-1rem">
+                {httpError}
+              </Text>
+            )}
+          </Box>
+        ))}
+      {type === CategoryType.INCOME &&
+        incomeCategories?.map((category) => (
+          <Box key={category.id}>
+            <CategoryInput category={category} bgcolor={"green.100"} />
+            {httpError && category.id === exactCategoryId && (
+              <Text color="red.500" fontSize="sm" mb="-1rem">
+                {httpError}
+              </Text>
+            )}
+          </Box>
+        ))}
+      {type === CategoryType.EXPENSE &&
+        expenseCategories?.map((category) => (
+          <Box key={category.id}>
+            <CategoryInput category={category} bgcolor={"red.100"} />
+            {httpError && category.id === exactCategoryId && (
+              <Text color="red.500" fontSize="sm">
+                {httpError}
+              </Text>
+            )}
+            {type === CategoryType.EXPENSE &&
+              exactCategoryId === category.id && <ColorBlocks />}
+          </Box>
+        ))}
+      {type === newCategoryStatus && (
+        <Box>
           <CategoryInput
             category={{}}
-            bgcolor={type === CategoryType.EXPENSE ? "red.100" : type === CategoryType.INCOME ? "green.100" : type === CategoryType.ACCOUNT ? "gray.300" : "white"}
+            bgcolor={
+              type === CategoryType.EXPENSE
+                ? "red.100"
+                : type === CategoryType.INCOME
+                ? "green.100"
+                : type === CategoryType.ACCOUNT
+                ? "gray.300"
+                : "white"
+            }
           />
+          {httpError && (
+            <Text
+              color="red.500"
+              fontSize="sm"
+              mb={type !== CategoryType.EXPENSE ? "-1rem" : ""}
+            >
+              {httpError}
+            </Text>
+          )}
           {type === CategoryType.EXPENSE && <ColorBlocks />}
-        </>
-      }
+        </Box>
+      )}
       <Button
         id={id}
         colorScheme="teal"
         variant="solid"
         name={type}
-        onClick={(e) => {type !== newCategoryStatus ? addNewCategory(e) : saveNewCategory()}}
+        onClick={(e) => {
+          type !== newCategoryStatus ? addNewCategory(e) : saveNewCategory();
+        }}
         isDisabled={
-          (newCategoryStatus !== null && type !== newCategoryStatus)
-          ||
-          (exactCategoryId !== null)
-          ||
-          (type === CategoryType.ACCOUNT && accountCategories && accountCategories.length >= 10)
-          ||
-          (type === CategoryType.INCOME && incomeCategories && incomeCategories.length >= 10)
-          ||
-          (type === CategoryType.EXPENSE && expenseCategories && expenseCategories.length >= 10)
+          (newCategoryStatus !== null && type !== newCategoryStatus) ||
+          exactCategoryId !== null ||
+          (type === CategoryType.ACCOUNT &&
+            accountCategories &&
+            accountCategories.length >= 10) ||
+          (type === CategoryType.INCOME &&
+            incomeCategories &&
+            incomeCategories.length >= 10) ||
+          (type === CategoryType.EXPENSE &&
+            expenseCategories &&
+            expenseCategories.length >= 10)
         }
       >
-        {type === newCategoryStatus ? "Save" : "Add"} {type === CategoryType.INCOME ? "income" : type === CategoryType.EXPENSE ? "expense" : type === CategoryType.ACCOUNT ? "account" : ""}
+        {type === newCategoryStatus ? "Save" : "Add"}{" "}
+        {type === CategoryType.INCOME
+          ? "income"
+          : type === CategoryType.EXPENSE
+          ? "expense"
+          : type === CategoryType.ACCOUNT
+          ? "account"
+          : ""}
       </Button>
     </VStack>
-  )
-}
+  );
+};
 
-export default CategoryColumn
+export default CategoryColumn;

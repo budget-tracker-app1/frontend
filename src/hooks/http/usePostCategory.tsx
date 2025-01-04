@@ -6,7 +6,7 @@ import { ICategory } from "../../components/Categories/CategoryColumn";
 
 const usePostCategory = () => {
   const queryClient = useQueryClient();
-  const { categoryObj, setNewCategoryStatus } = useBudgetTrackerStore();
+  const { categoryObj, setNewCategoryStatus, setHttpError } = useBudgetTrackerStore();
 
   const { mutate: saveNewCategory } = useMutation({
     mutationFn: () =>
@@ -14,12 +14,14 @@ const usePostCategory = () => {
     onSuccess: ({data}) => {
       // console.log(data);
 
+      setHttpError(null);
       setNewCategoryStatus(null);
       const currentCategories = (queryClient.getQueryData<ICategory[]>('categories') || []);
       queryClient.setQueryData('categories', [...currentCategories, data]);
     },
-    onError: (error) => {
+    onError: (error: any) => {
       console.error('Error fetching data:', error);
+      setHttpError(error.response?.data?.message || 'An error occurred');
     },
   });
 

@@ -1,6 +1,11 @@
-import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons"
-import { IconButton, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
-import React, { ChangeEvent, useEffect, useRef } from 'react'
+import { CheckIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import {
+  IconButton,
+  Input,
+  InputGroup,
+  InputRightElement,
+} from "@chakra-ui/react";
+import React, { ChangeEvent, useEffect, useRef } from "react";
 import useBudgetTrackerStore from "../../store";
 import usePutCategory from "../../hooks/http/usePutCategory";
 
@@ -9,8 +14,17 @@ interface CategoryInputProps {
   bgcolor: string;
 }
 
-const CategoryInput = ({category, bgcolor}: CategoryInputProps) => {
-  const { newCategoryStatus, setNewCategoryStatus, categoryObj, setCategoryObj, exactCategoryId, setExactCategoryId } = useBudgetTrackerStore();
+const CategoryInput = ({ category, bgcolor }: CategoryInputProps) => {
+  const {
+    newCategoryStatus,
+    setNewCategoryStatus,
+    categoryObj,
+    setCategoryObj,
+    exactCategoryId,
+    setExactCategoryId,
+    httpError,
+    setHttpError,
+  } = useBudgetTrackerStore();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { saveEditedCategory } = usePutCategory();
@@ -23,7 +37,7 @@ const CategoryInput = ({category, bgcolor}: CategoryInputProps) => {
 
   useEffect(() => {
     if (inputRef.current) {
-      inputRef.current.value = category.name ? category.name : '';
+      inputRef.current.value = category.name ? category.name : "";
     }
   }, [category.name]);
 
@@ -34,11 +48,12 @@ const CategoryInput = ({category, bgcolor}: CategoryInputProps) => {
       ...categoryObj,
       name: updatedValue,
     });
-  }
+  };
 
   const removeNewCategory = () => {
+    setHttpError(null);
     setNewCategoryStatus(null);
-  }
+  };
 
   const editCategoryHandler = (category: any) => {
     if (!exactCategoryId && !newCategoryStatus) {
@@ -50,28 +65,42 @@ const CategoryInput = ({category, bgcolor}: CategoryInputProps) => {
       });
       setExactCategoryId(category.id);
     }
-  }
+  };
 
   const cancelEditCategory = () => {
     if (inputRef.current) {
       inputRef.current.value = category.name;
     }
+    setHttpError(null);
     setExactCategoryId(null);
-  }  
+  };
 
   return (
     <>
       <InputGroup>
         <Input
           ref={inputRef}
-          defaultValue={category?.name || ''}
+          defaultValue={category?.name || ""}
           placeholder="Category name"
-          isDisabled={!((!newCategoryStatus && category.id === exactCategoryId) || (newCategoryStatus && !category.id))}
+          isDisabled={
+            !(
+              (!newCategoryStatus && category.id === exactCategoryId) ||
+              (newCategoryStatus && !category.id)
+            )
+          }
           onChange={(e) => inputFieldChange(e)}
           bgColor={bgcolor}
+          borderColor={
+            httpError &&
+            (category.id === exactCategoryId ||
+              (newCategoryStatus && !category.id))
+              ? "red.500"
+              : undefined
+          }
         />
         <InputRightElement display="flex" alignItems="center" width="auto">
-          {((!newCategoryStatus && category.id !== exactCategoryId) || (category.id && !exactCategoryId)) &&
+          {((!newCategoryStatus && category.id !== exactCategoryId) ||
+            (category.id && !exactCategoryId)) && (
             <IconButton
               aria-label="Edit"
               icon={<EditIcon />}
@@ -79,34 +108,38 @@ const CategoryInput = ({category, bgcolor}: CategoryInputProps) => {
               variant="ghost"
               onClick={() => editCategoryHandler(category)}
             />
-          }
-          {exactCategoryId && category.id === exactCategoryId && <>
+          )}
+          {exactCategoryId && category.id === exactCategoryId && (
+            <>
+              <IconButton
+                aria-label="Save"
+                icon={<CheckIcon />}
+                size="sm"
+                variant="ghost"
+                onClick={() => saveEditedCategory(exactCategoryId)}
+              />
+              <IconButton
+                aria-label="Cancel"
+                icon={<CloseIcon />}
+                size="sm"
+                variant="ghost"
+                onClick={cancelEditCategory}
+              />
+            </>
+          )}
+          {newCategoryStatus && !category.id && (
             <IconButton
-              aria-label="Save"
-              icon={<CheckIcon />}
+              aria-label="Delete"
+              icon={<DeleteIcon />}
               size="sm"
               variant="ghost"
-              onClick={() => saveEditedCategory(exactCategoryId)}
+              onClick={removeNewCategory}
             />
-            <IconButton
-              aria-label="Cancel"
-              icon={<CloseIcon />}
-              size="sm"
-              variant="ghost"
-              onClick={cancelEditCategory}
-            />
-          </>}
-          {newCategoryStatus && !category.id && <IconButton
-            aria-label="Delete"
-            icon={<DeleteIcon />}
-            size="sm"
-            variant="ghost"
-            onClick={removeNewCategory}
-          />}
+          )}
         </InputRightElement>
       </InputGroup>
     </>
-  )
-}
+  );
+};
 
-export default CategoryInput
+export default CategoryInput;
