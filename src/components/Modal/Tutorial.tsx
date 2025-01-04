@@ -14,7 +14,7 @@ const Tutorial = () => {
       const timer = setTimeout(() => {
         setIsModalOpen(true);
         setModalName(EModalName.TUTORIAL);
-      }, 1000);
+      }, 2000);
   
       return () => clearTimeout(timer);
     }
