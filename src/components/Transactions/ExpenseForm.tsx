@@ -1,27 +1,46 @@
-import { FormControl, FormLabel, HStack, Input, Select } from "@chakra-ui/react"
-import React from 'react'
+import {
+  FormControl,
+  FormLabel,
+  HStack,
+  Input,
+  Select,
+  Text,
+} from "@chakra-ui/react";
+import React from "react";
 import useBudgetTrackerStore from "../../store";
 import useCategories from "../../hooks/general/useCategories";
 import { ITransaction } from ".";
 
 const ExpenseForm = () => {
-  const { newTransactionStatus, transactionObj, setTransactionObj } = useBudgetTrackerStore();
+  const {
+    newTransactionStatus,
+    transactionObj,
+    setTransactionObj,
+    leftCategoryError,
+    rightCategoryError,
+    amountError,
+  } = useBudgetTrackerStore();
   const { accountCategories, expenseCategories } = useCategories();
 
-  const handleSelectBoxChange = (e: React.ChangeEvent<HTMLSelectElement>, index: string) => {
+  const handleSelectBoxChange = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    index: string
+  ) => {
     const { value } = e.target;
-    
+
     if (index === "first") {
-      const categoryId = accountCategories?.find(category => category.name === value)?.id ?? null;
+      const categoryId =
+        accountCategories?.find((category) => category.name === value)?.id ??
+        null;
       setTransactionObj({
-        ...transactionObj as ITransaction,
+        ...(transactionObj as ITransaction),
         leftCategory: value,
         category_id: categoryId,
       });
     }
     if (index === "second") {
       setTransactionObj({
-        ...transactionObj as ITransaction,
+        ...(transactionObj as ITransaction),
         rightCategory: value,
       });
     }
@@ -51,7 +70,7 @@ const ExpenseForm = () => {
     // }
 
     setTransactionObj({
-      ...transactionObj as ITransaction,
+      ...(transactionObj as ITransaction),
       amount: parseFloat(input) || 0,
     });
   };
@@ -64,6 +83,7 @@ const ExpenseForm = () => {
           <Select
             placeholder={"Select account"}
             onChange={(e) => handleSelectBoxChange(e, "first")}
+            borderColor={leftCategoryError ? "red.500" : undefined}
           >
             {accountCategories?.map((account: any) => (
               <option key={account.id} value={account.name}>
@@ -71,12 +91,18 @@ const ExpenseForm = () => {
               </option>
             ))}
           </Select>
+          {leftCategoryError && (
+            <Text color="red.500" fontSize="sm" mb={"-1rem"}>
+              {leftCategoryError}
+            </Text>
+          )}
         </FormControl>
 
         <FormControl id="income">
           <Select
             placeholder={"Select expense source"}
             onChange={(e) => handleSelectBoxChange(e, "second")}
+            borderColor={rightCategoryError ? "red.500" : undefined}
           >
             {expenseCategories?.map((income: any) => (
               <option key={income.id} value={income.name}>
@@ -84,6 +110,11 @@ const ExpenseForm = () => {
               </option>
             ))}
           </Select>
+          {rightCategoryError && (
+            <Text color="red.500" fontSize="sm" mb={"-1rem"}>
+              {rightCategoryError}
+            </Text>
+          )}
         </FormControl>
       </HStack>
 
@@ -91,16 +122,24 @@ const ExpenseForm = () => {
         <Input
           type="text"
           placeholder="Enter amount"
-          value={transactionObj?.amount ? transactionObj.amount.toString() : '0'}
+          borderColor={amountError ? "red.500" : undefined}
+          value={
+            transactionObj?.amount ? transactionObj.amount.toString() : "0"
+          }
           onChange={handleAmountChange}
         />
+        {amountError && (
+          <Text color="red.500" fontSize="sm" mb={"-1rem"}>
+            {amountError}
+          </Text>
+        )}
       </FormControl>
 
       <FormControl id="description">
         <Input type="text" placeholder="Enter description" />
       </FormControl>
     </>
-  )
-}
+  );
+};
 
-export default ExpenseForm
+export default ExpenseForm;
