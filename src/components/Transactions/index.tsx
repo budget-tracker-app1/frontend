@@ -1,6 +1,6 @@
-import { AddIcon, MinusIcon, RepeatIcon } from "@chakra-ui/icons"
-import { Button, HStack, Text, VStack } from "@chakra-ui/react"
-import React from 'react'
+import { AddIcon, MinusIcon, RepeatIcon } from "@chakra-ui/icons";
+import { Button, HStack, Text, VStack } from "@chakra-ui/react";
+import React from "react";
 import useBudgetTrackerStore from "../../store";
 import IncomeForm from "./IncomeForm";
 import TransferForm from "./TransferForm";
@@ -22,7 +22,7 @@ export interface ITransaction {
   amount: number;
   description: string | null;
   category_id: number | null;
-  status: 'SUCCESS' | 'FAILED';
+  status: "SUCCESS" | "FAILED";
   createdAt: Date;
   user_id?: number;
 }
@@ -32,7 +32,15 @@ export interface ITransactionWithColor extends ITransaction {
 }
 
 const Transactions = () => {
-  const { newTransactionStatus, setNewTransactionStatus, transactionObj, setTransactionObj } = useBudgetTrackerStore();
+  const {
+    newTransactionStatus,
+    setNewTransactionStatus,
+    transactionObj,
+    setTransactionObj,
+    setLeftCategoryError,
+    setRightCategoryError,
+    setAmountError,
+  } = useBudgetTrackerStore();
   const { saveTransaction } = usePostTransaction();
 
   const addNewTransactionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,49 +52,59 @@ const Transactions = () => {
         type: e.currentTarget.name as TransactionType,
       });
     }
-  }
+  };
+
+  const handleCancelTransaction = () => {
+    setNewTransactionStatus(null);
+    setLeftCategoryError(null);
+    setRightCategoryError(null);
+    setAmountError(null);
+  };
 
   return (
     <>
       <VStack spacing={4} width="100%" maxW="400px">
-        <Text fontSize="xl" fontWeight="bold">Transactions</Text>
-        {newTransactionStatus &&
-        <VStack
-          spacing={4}
-          width="100%"
-          maxW="400px"
-          p={4}
-          borderWidth="1px"
-          borderRadius="md"
-          boxShadow="md"
-          bgColor="#FFFFFF"
-        >
-          {newTransactionStatus === TransactionType.INCOME ?
-            <IncomeForm /> :
-          newTransactionStatus === TransactionType.TRANSFER ?
-            <TransferForm /> :
-          newTransactionStatus === TransactionType.EXPENSE ?
-            <ExpenseForm /> :
-          null}
+        <Text fontSize="xl" fontWeight="bold">
+          Transactions
+        </Text>
+        {newTransactionStatus && (
+          <VStack
+            spacing={4}
+            width="100%"
+            maxW="400px"
+            p={4}
+            borderWidth="1px"
+            borderRadius="md"
+            boxShadow="md"
+            bgColor="#FFFFFF"
+          >
+            {newTransactionStatus === TransactionType.INCOME ? (
+              <IncomeForm />
+            ) : newTransactionStatus === TransactionType.TRANSFER ? (
+              <TransferForm />
+            ) : newTransactionStatus === TransactionType.EXPENSE ? (
+              <ExpenseForm />
+            ) : null}
 
-          <HStack spacing={4} width="100%">
-            <Button
-              colorScheme="blue"
-              width="50%"
-              onClick={() => saveTransaction()}
-            >
-              Save
-            </Button>
-            <Button
-              colorScheme="blue"
-              width="50%"
-              variant="outline"
-              onClick={() => setNewTransactionStatus(null)}
-            >
-              Cancel
-            </Button>
-          </HStack>
-        </VStack>}
+            <HStack spacing={4} width="100%">
+              <Button
+                colorScheme="blue"
+                width="50%"
+                onClick={() => saveTransaction()}
+              >
+                Save
+              </Button>
+              <Button
+                colorScheme="blue"
+                width="50%"
+                variant="outline"
+                onClick={handleCancelTransaction}
+              >
+                Cancel
+              </Button>
+            </HStack>
+          </VStack>
+        )}
 
         <HStack spacing={4}>
           <Button
@@ -149,7 +167,7 @@ const Transactions = () => {
         </HStack>
       </VStack>
     </>
-  )
-}
+  );
+};
 
-export default Transactions
+export default Transactions;
