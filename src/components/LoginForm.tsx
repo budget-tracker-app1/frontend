@@ -80,30 +80,41 @@ const LoginForm: React.FC = () => {
   };
 
   return (
-    <Flex height="100vh" justifyContent="center" alignItems="center">
+    <Flex
+      position="relative"
+      bottom="2vw"
+      height="100%"
+      justifyContent="center"
+      alignItems="center"
+    >
       <Box
-        width="400px"
+        width="23vw"
         mx="auto"
-        p="6"
+        p="1.5vw"
         bgColor="#e6e6e6"
         boxShadow="2xl"
-        borderRadius="md"
+        borderRadius="0.5vw"
         borderWidth="1px"
       >
-        <Heading mb="6" size="lg" textAlign="center">
+        <Heading mb="1.1vw" fontSize="1.6vw" textAlign="center">
           Login
         </Heading>
         <form onSubmit={handleSubmit}>
-          <Stack spacing={4}>
+          <Stack spacing="1vw">
             <FormControl isRequired>
-              <FormLabel htmlFor="username">Username</FormLabel>
+              <FormLabel htmlFor="username" fontSize="0.9vw" mb="0.3vw">
+                Username
+              </FormLabel>
               <Input
                 id="username"
                 type="text"
+                height="2.4vw"
                 value={username}
                 maxLength={32}
                 bgColor="#FFFFFF"
                 boxShadow="md"
+                borderRadius="0.4vw"
+                fontSize="1vw"
                 _focus={{
                   boxShadow: "lg",
                   outline: "none",
@@ -113,14 +124,19 @@ const LoginForm: React.FC = () => {
               />
             </FormControl>
             <FormControl isRequired>
-              <FormLabel htmlFor="password">Password</FormLabel>
+              <FormLabel htmlFor="password" fontSize="0.9vw" mb="0.3vw">
+                Password
+              </FormLabel>
               <Input
                 id="password"
                 type="password"
+                height="2.4vw"
                 value={password}
                 maxLength={32}
                 bgColor="#FFFFFF"
                 boxShadow="md"
+                borderRadius="0.4vw"
+                fontSize="1vw"
                 _focus={{
                   boxShadow: "lg",
                   outline: "none",
@@ -132,9 +148,12 @@ const LoginForm: React.FC = () => {
             <Button
               colorScheme="teal"
               type="submit"
-              width="full"
+              width="100%"
+              height="2.4vw"
               boxShadow="lg"
-              mt="30px"
+              borderRadius="0.4vw"
+              fontSize="0.9vw"
+              mt="1.5vw"
               isLoading={isLoading}
             >
               Login
