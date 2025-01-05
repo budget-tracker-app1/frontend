@@ -19,6 +19,9 @@ interface BudgetTrackerState {
   modalName: EModalName | null;
   startTutorial: boolean;
   httpError: string | null;
+  leftCategoryError: string | null;
+  rightCategoryError: string | null;
+  amountError: string | null;
 
   setNewCategoryStatus: (data: CategoryType | null) => void;
   setCategoryObj: (data: ICategory) => void;
@@ -29,6 +32,9 @@ interface BudgetTrackerState {
   setModalName: (data: EModalName | null) => void;
   setStartTutorial: (data: boolean) => void;
   setHttpError: (data: string | null) => void;
+  setLeftCategoryError: (data: string | null) => void;
+  setRightCategoryError: (data: string | null) => void;
+  setAmountError: (data: string | null) => void;
 }
 
 const useBudgetTrackerStore = create<BudgetTrackerState>((set) => ({
@@ -53,6 +59,9 @@ const useBudgetTrackerStore = create<BudgetTrackerState>((set) => ({
   modalName: null,
   startTutorial: false,
   httpError: null,
+  leftCategoryError: null,
+  rightCategoryError: null,
+  amountError: null,
 
   setNewCategoryStatus: (data) => set(() => ({ newCategoryStatus: data })),
   setCategoryObj: (data) => set(() => ({ categoryObj: data })),
@@ -63,6 +72,9 @@ const useBudgetTrackerStore = create<BudgetTrackerState>((set) => ({
   setModalName: (data) => set(() => ({ modalName: data })),
   setStartTutorial: (data) => set(() => ({ startTutorial: data })),
   setHttpError: (data) => set(() => ({ httpError: data })),
+  setLeftCategoryError: (data) => set(() => ({ leftCategoryError: data })),
+  setRightCategoryError: (data) => set(() => ({ rightCategoryError: data })),
+  setAmountError: (data) => set(() => ({ amountError: data })),
 }));
 
 export default useBudgetTrackerStore;
