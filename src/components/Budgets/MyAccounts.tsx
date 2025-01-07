@@ -21,7 +21,7 @@ const MyAccounts = () => {
         variants={fadeInVariants}
         style={{ width: "100%", display: "flex", justifyContent: "center" }}
       >
-        <VStack spacing="0.8vw" width="100%" maxW="21vw">
+        <VStack spacing="0.8vw" width="100%" maxW="21vw" height="20.5vw" overflow="auto">
           <Text fontSize="1.05vw" fontWeight="bold">
             My accounts
           </Text>

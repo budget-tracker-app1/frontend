@@ -56,7 +56,7 @@ const CategoryColumn = ({ type, id }: CategoryColumnProps) => {
   };
 
   return (
-    <VStack spacing="0.83vw" width="100vw">
+    <VStack spacing="0.83vw" width="100vw" height="25vw" overflow="auto">
       <Text fontSize="1.05vw" fontWeight="bold">
         {type === CategoryType.INCOME
           ? "Incomes"
@@ -136,6 +136,9 @@ const CategoryColumn = ({ type, id }: CategoryColumnProps) => {
         colorScheme="teal"
         variant="solid"
         name={type}
+        minHeight="2.1vw"
+        fontSize="0.85vw"
+        borderRadius="0.3vw"
         onClick={(e) => {
           type !== newCategoryStatus ? addNewCategory(e) : saveNewCategory();
         }}

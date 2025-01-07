@@ -120,53 +120,55 @@ const History: React.FC = () => {
               Reset all sorting
             </Button>
           </Flex>
-          {sortedData.map((each) => (
-            <Box
-              key={each.id}
-              width="full"
-              p="0.8vw"
-              shadow="sm"
-              borderWidth="1px"
-              borderRadius="0.3vw"
-              bg="white"
-            >
-              <Flex justify="space-between" align="center" mb="0.4vw">
-                <Badge
-                  colorScheme="gray"
-                  fontSize="0.83vw"
-                  px="0.62vw"
-                  py="0.24vw"
-                  borderRadius="0.3vw"
-                >
-                  {each.type}
-                </Badge>
-                <Text color="gray.600" fontSize="0.7vw">
-                  Date: {new Date(each.createdAt).toLocaleDateString("en-GB")}
-                </Text>
-              </Flex>
+          <VStack height="22vw" overflow="auto" spacing="0.8vw" borderRadius="0.3vw">
+            {sortedData.map((each) => (
+              <Box
+                key={each.id}
+                width="full"
+                p="0.8vw"
+                shadow="sm"
+                borderWidth="1px"
+                borderRadius="0.3vw"
+                bg="white"
+              >
+                <Flex justify="space-between" align="center" mb="0.4vw">
+                  <Badge
+                    colorScheme="gray"
+                    fontSize="0.83vw"
+                    px="0.62vw"
+                    py="0.24vw"
+                    borderRadius="0.3vw"
+                  >
+                    {each.type}
+                  </Badge>
+                  <Text color="gray.600" fontSize="0.7vw">
+                    Date: {new Date(each.createdAt).toLocaleDateString("en-GB")}
+                  </Text>
+                </Flex>
 
-              <Flex justify="space-between" align="center" mb="0.35vw">
-                <Badge
-                  colorScheme={each.status === "SUCCESS" ? "green" : "red"}
-                  px="0.45vw"
-                  borderRadius="0.3vw"
-                >
-                  {each.status}
-                </Badge>
-                <Text fontWeight="bold" fontSize="0.84vw" textAlign="right">
-                  {each.status === "SUCCESS"
-                    ? getSuccessMessage(each)
-                    : getFailedMessage(each)}
-                </Text>
-              </Flex>
+                <Flex justify="space-between" align="center" mb="0.35vw">
+                  <Badge
+                    colorScheme={each.status === "SUCCESS" ? "green" : "red"}
+                    px="0.45vw"
+                    borderRadius="0.3vw"
+                  >
+                    {each.status}
+                  </Badge>
+                  <Text fontWeight="bold" fontSize="0.84vw" textAlign="right">
+                    {each.status === "SUCCESS"
+                      ? getSuccessMessage(each)
+                      : getFailedMessage(each)}
+                  </Text>
+                </Flex>
 
-              {each.description && (
-                <Text color="gray.700" fontSize="0.74vw" mt="0.4vw">
-                  Description: {each.description}
-                </Text>
-              )}
-            </Box>
-          ))}
+                {each.description && (
+                  <Text color="gray.700" fontSize="0.74vw" mt="0.4vw">
+                    Description: {each.description}
+                  </Text>
+                )}
+              </Box>
+            ))}
+          </VStack>
         </motion.div>
       ) : (
         <Text>Loading...</Text>
