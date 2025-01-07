@@ -43,7 +43,7 @@ const Budgets = () => {
           <Flex flexDir="row">
             <Box
               position="fixed"
-              bottom="2.6vw"
+              bottom="1.6vw"
               left="2vw"
               bgColor="white"
               padding="0.25vw"
@@ -78,7 +78,7 @@ const Budgets = () => {
             </Box>
             <Box
               position="fixed"
-              bottom="2.6vw"
+              bottom="1.6vw"
               left="10.7vw"
               bgColor="white"
               padding="0.25vw"

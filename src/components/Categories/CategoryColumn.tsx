@@ -56,7 +56,7 @@ const CategoryColumn = ({ type, id }: CategoryColumnProps) => {
   };
 
   return (
-    <VStack spacing="0.83vw" width="100%" maxW="21vw">
+    <VStack spacing="0.83vw" width="100vw">
       <Text fontSize="1.05vw" fontWeight="bold">
         {type === CategoryType.INCOME
           ? "Incomes"
