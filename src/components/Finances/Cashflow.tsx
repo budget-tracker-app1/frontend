@@ -52,7 +52,7 @@ const Cashflow = () => {
         variants={fadeInVariants}
         style={{ width: "100%", display: "flex", justifyContent: "flex-end" }}
       >
-        <VStack width="100%" height="25vw" maxW="21vw" gap={0} overflow="auto">
+        <VStack width="100%" maxHeight="25vw" maxW="21vw" gap={0} overflow="auto">
           <Text
             id={TutorialTargets.CashflowTitle}
             fontSize="1.05vw"

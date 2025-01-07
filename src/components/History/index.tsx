@@ -120,7 +120,7 @@ const History: React.FC = () => {
               Reset all sorting
             </Button>
           </Flex>
-          <VStack height="22vw" overflow="auto" spacing="0.8vw" borderRadius="0.3vw">
+          <VStack maxHeight="22vw" overflow="auto" spacing="0.8vw" borderRadius="0.3vw">
             {sortedData.map((each) => (
               <Box
                 key={each.id}
