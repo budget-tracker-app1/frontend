@@ -43,18 +43,18 @@ const Tutorial = () => {
           <ModalOverlay />
           <ModalContent
             style={{
-              border: '20px solid #444444',
-              borderRadius: '20px',
+              border: '1.2vw solid #444444',
+              borderRadius: '1vw',
               backgroundColor: '#FFF9C4'
             }}
           >
-            <ModalHeader fontSize="2xl">Welcome!</ModalHeader>
+            <ModalHeader fontSize="1.27vw">Welcome!</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Text fontSize="lg">Do you want to proceed with the tutorial step by step?</Text>
+              <Text fontSize="0.96vw">Do you want to proceed with the tutorial step by step?</Text>
             </ModalBody>
 
-            <ModalFooter display="flex" justifyContent="space-between" gap="60px">
+            <ModalFooter display="flex" justifyContent="space-between" gap="3.2vw">
               <Button
                 colorScheme="red"
                 onClick={handleModalClose}

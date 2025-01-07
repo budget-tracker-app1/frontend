@@ -56,8 +56,8 @@ const CategoryColumn = ({ type, id }: CategoryColumnProps) => {
   };
 
   return (
-    <VStack spacing={4} width="100%" maxW="400px">
-      <Text fontSize="xl" fontWeight="bold">
+    <VStack spacing="0.83vw" width="100%" maxW="21vw">
+      <Text fontSize="1.05vw" fontWeight="bold">
         {type === CategoryType.INCOME
           ? "Incomes"
           : type === CategoryType.EXPENSE
@@ -75,7 +75,7 @@ const CategoryColumn = ({ type, id }: CategoryColumnProps) => {
               bgcolor={"gray.300"}
             />
             {httpError && category.id === exactCategoryId && (
-              <Text color="red.500" fontSize="sm" mb="-1rem">
+              <Text color="red.500" fontSize="0.73vw" mb="-0.7vw">
                 {httpError}
               </Text>
             )}
@@ -86,7 +86,7 @@ const CategoryColumn = ({ type, id }: CategoryColumnProps) => {
           <Box key={category.id}>
             <CategoryInput category={category} bgcolor={"green.100"} />
             {httpError && category.id === exactCategoryId && (
-              <Text color="red.500" fontSize="sm" mb="-1rem">
+              <Text color="red.500" fontSize="0.73vw" mb="-0.7vw">
                 {httpError}
               </Text>
             )}
@@ -97,7 +97,7 @@ const CategoryColumn = ({ type, id }: CategoryColumnProps) => {
           <Box key={category.id}>
             <CategoryInput category={category} bgcolor={"red.100"} />
             {httpError && category.id === exactCategoryId && (
-              <Text color="red.500" fontSize="sm">
+              <Text color="red.500" fontSize="0.73vw">
                 {httpError}
               </Text>
             )}
@@ -122,8 +122,8 @@ const CategoryColumn = ({ type, id }: CategoryColumnProps) => {
           {httpError && (
             <Text
               color="red.500"
-              fontSize="sm"
-              mb={type !== CategoryType.EXPENSE ? "-1rem" : ""}
+              fontSize="0.73vw"
+              mb={type !== CategoryType.EXPENSE ? "-0.7vw" : ""}
             >
               {httpError}
             </Text>

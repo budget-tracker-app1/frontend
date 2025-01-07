@@ -65,8 +65,8 @@ const History: React.FC = () => {
   };
 
   return (
-    <VStack align="center" gap="1rem" width="full" pr={4} pl={4}>
-      <Text fontSize="xl" fontWeight="bold" mb="-0.5rem">
+    <VStack align="center" gap="1vw" width="full" pr="1vw" pl="1vw">
+      <Text fontSize="1.05vw" fontWeight="bold" mb="-0.5vw">
         History
       </Text>
       {!isCategoriesLoading && !isTransactionsLoading ? (
@@ -79,16 +79,16 @@ const History: React.FC = () => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            gap: "1rem"
+            gap: "0.8vw",
           }}
         >
-          <Flex justify="center" mb={4} gap={4}>
+          <Flex justify="center" mb="0.2vw" gap="1vw">
             <Box
               id={TutorialTargets.SortButtonGroup}
               display="flex"
               flexDir="row"
-              gap={4}
-              borderRadius="8px"
+              gap="0.8vw"
+              borderRadius="0.3vw"
             >
               <Button
                 onClick={() => handleColumnClick(Column.TYPE)}
@@ -124,36 +124,36 @@ const History: React.FC = () => {
             <Box
               key={each.id}
               width="full"
-              p={4}
+              p="0.8vw"
               shadow="sm"
               borderWidth="1px"
-              borderRadius="md"
+              borderRadius="0.3vw"
               bg="white"
             >
-              <Flex justify="space-between" align="center" mb={2}>
+              <Flex justify="space-between" align="center" mb="0.4vw">
                 <Badge
                   colorScheme="gray"
-                  fontSize="md"
-                  px={3}
-                  py={1}
-                  borderRadius="md"
+                  fontSize="0.83vw"
+                  px="0.62vw"
+                  py="0.24vw"
+                  borderRadius="0.3vw"
                 >
                   {each.type}
                 </Badge>
-                <Text color="gray.600" fontSize="sm">
+                <Text color="gray.600" fontSize="0.7vw">
                   Date: {new Date(each.createdAt).toLocaleDateString("en-GB")}
                 </Text>
               </Flex>
 
-              <Flex justify="space-between" align="center" mb={2}>
+              <Flex justify="space-between" align="center" mb="0.35vw">
                 <Badge
                   colorScheme={each.status === "SUCCESS" ? "green" : "red"}
-                  px={2}
-                  borderRadius="md"
+                  px="0.45vw"
+                  borderRadius="0.3vw"
                 >
                   {each.status}
                 </Badge>
-                <Text fontWeight="bold" fontSize="md" textAlign="right">
+                <Text fontWeight="bold" fontSize="0.84vw" textAlign="right">
                   {each.status === "SUCCESS"
                     ? getSuccessMessage(each)
                     : getFailedMessage(each)}
@@ -161,7 +161,7 @@ const History: React.FC = () => {
               </Flex>
 
               {each.description && (
-                <Text color="gray.700" fontSize="sm" mt={2}>
+                <Text color="gray.700" fontSize="0.74vw" mt="0.4vw">
                   Description: {each.description}
                 </Text>
               )}

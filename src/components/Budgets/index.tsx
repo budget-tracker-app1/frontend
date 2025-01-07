@@ -1,7 +1,7 @@
-import { Box, Flex, HStack, IconButton, Text } from "@chakra-ui/react"
-import React from 'react'
-import MyAccounts from "./MyAccounts"
-import Transactions from "../Transactions"
+import { Box, Flex, HStack, IconButton, Text } from "@chakra-ui/react";
+import React from "react";
+import MyAccounts from "./MyAccounts";
+import Transactions from "../Transactions";
 import { ArrowBackIcon, InfoIcon } from "@chakra-ui/icons";
 import useFetchAllCategories from "../../hooks/http/useFetchAllCategories";
 import useFetchAllTransactions from "../../hooks/http/useFetchAllTransactions";
@@ -15,22 +15,24 @@ const Budgets = () => {
   const handleLogout = () => {
     localStorage.clear();
     sessionStorage.clear();
-    window.location.replace('/');
+    window.location.replace("/");
   };
 
   const handleAboutModal = () => {
     setModalName(EModalName.ABOUT);
-  }
+  };
 
   return (
     <>
-      <Text fontSize="xl" fontWeight="bold">Budgets</Text>
-      {!isCategoriesLoading && !isTransactionsLoading ?
+      <Text fontSize="1.1vw" fontWeight="bold">
+        Budgets
+      </Text>
+      {!isCategoriesLoading && !isTransactionsLoading ? (
         <>
           <HStack
-            spacing={4}
+            spacing="2vw"
             width="100%"
-            maxW="900px"
+            maxW="46.88vw"
             margin="0 auto"
             justifyContent="space-around"
             alignItems="flex-start"
@@ -41,10 +43,10 @@ const Budgets = () => {
           <Flex flexDir="row">
             <Box
               position="fixed"
-              bottom="50px"
-              left="40px"
+              bottom="2.6vw"
+              left="2vw"
               bgColor="white"
-              padding="5px"
+              padding="0.25vw"
               borderRadius={50}
               cursor="pointer"
               boxShadow="lg"
@@ -55,30 +57,31 @@ const Budgets = () => {
                 transition: "all 0.2s ease-in-out",
               }}
             >
-              <Flex
-                alignItems="center"
-                gap="10px"
-                onClick={handleLogout}
-              >
+              <Flex alignItems="center" gap="0.6vw" onClick={handleLogout}>
                 <IconButton
                   aria-label="Logout"
-                  icon={<ArrowBackIcon />}
+                  icon={<ArrowBackIcon boxSize="1vw" />}
                   size="lg"
                   colorScheme="red"
                   borderRadius="full"
-                  ml="2px"
+                  ml="0.1vw"
                 />
-                <Text fontSize="20px" fontWeight="bold" color="black.500" mr="10px">
+                <Text
+                  fontSize="1.05vw"
+                  fontWeight="bold"
+                  color="black.500"
+                  mr="0.5vw"
+                >
                   Logout
                 </Text>
               </Flex>
             </Box>
             <Box
               position="fixed"
-              bottom="50px"
-              left="205px"
+              bottom="2.6vw"
+              left="10.7vw"
               bgColor="white"
-              padding="5px"
+              padding="0.25vw"
               borderRadius={50}
               cursor="pointer"
               boxShadow="lg"
@@ -91,7 +94,7 @@ const Budgets = () => {
             >
               <IconButton
                 aria-label="New Action"
-                icon={<InfoIcon />}
+                icon={<InfoIcon boxSize="1vw" />}
                 size="lg"
                 colorScheme="blue"
                 borderRadius="full"
@@ -99,11 +102,12 @@ const Budgets = () => {
               />
             </Box>
           </Flex>
-        </> :
+        </>
+      ) : (
         <Text>Loading...</Text>
-      }
+      )}
     </>
-  )
-}
+  );
+};
 
-export default Budgets
+export default Budgets;

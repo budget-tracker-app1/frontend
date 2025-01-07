@@ -48,14 +48,13 @@ const ExpensesChart: React.FC = () => {
 
   return (
     <>
-      <VStack spacing={4} width="100%" maxW="400px">
+      <VStack spacing="1vw" width="100%" maxW="21vw">
         <Text
           id={TutorialTargets.ExpensesChartTitle}
-          fontSize="xl"
+          fontSize="1.05vw"
           fontWeight="bold"
           bgColor="#F1F1F1"
-          borderRadius="md"
-          padding={"3px 6px"}
+          borderRadius="0.25vw"
         >
           Expenses Chart
         </Text>

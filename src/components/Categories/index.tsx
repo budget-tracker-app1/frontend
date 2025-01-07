@@ -20,7 +20,7 @@ const Categories = () => {
 
   return (
     <>
-      <Text fontSize="xl" fontWeight="bold">
+      <Text fontSize="1.1vw" fontWeight="bold">
         Categories
       </Text>
       {!isCategoriesLoading && !isTransactionsLoading ? (
@@ -30,9 +30,9 @@ const Categories = () => {
           variants={fadeInVariants}
         >
           <HStack
-            spacing={8}
+            spacing="2vw"
             width="100%"
-            maxW="900px"
+            maxW="46.88vw"
             margin="0 auto"
             alignItems="flex-start"
           >

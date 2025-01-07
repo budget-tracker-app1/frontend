@@ -26,18 +26,17 @@ const ImportantInformation = () => {
           <ModalOverlay />
           <ModalContent
             style={{
-              border: '20px solid #444444',
-              borderRadius: '20px',
+              border: '1.2vw solid #444444',
+              borderRadius: '1vw',
               backgroundColor: '#FFF9C4'
             }}
           >
-            <ModalHeader fontSize="2xl">Important Information</ModalHeader>
+            <ModalHeader fontSize="1.27vw">Important Information</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Text fontSize="lg">Here is some important information for you regarding this action. After you add a new account, income or expense category, you will not be able to delete it anymore.</Text>
+              <Text fontSize="0.96vw">Here is some important information for you regarding this action. After you add a new account, income or expense category, you will not be able to delete it anymore.</Text>
               <Checkbox
-                fontSize="lg"
-                mt={4}
+                mt="1vw"
                 onChange={(e) => setDontShowAgain(e.target.checked)} 
                 defaultChecked={dontShowAgain}
               >

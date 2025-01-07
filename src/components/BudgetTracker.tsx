@@ -29,14 +29,14 @@ const BudgetTracker: React.FC = () => {
 
   return (
     <>
-      <VStack spacing={4}>
-        <Flex gap={4} justify="center" width="100%" height="48vh">
+      <VStack spacing="0.8vw" height="100vh">
+        <Flex gap="0.8vw" justify="center" width="100%" height="50%">
           <Box
             flex="1"
             display="flex"
             flexDirection="column"
             alignItems="center"
-            minW="200px"
+            minW="49vw"
             overflow="auto"
             bgColor="lightgoldenrodyellow"
           >
@@ -47,7 +47,7 @@ const BudgetTracker: React.FC = () => {
             display="flex"
             flexDirection="column"
             alignItems="center"
-            minW="200px"
+            minW="49vw"
             overflow="auto"
             bgColor="#F1F1F1"
           >
@@ -55,13 +55,13 @@ const BudgetTracker: React.FC = () => {
           </Box>
         </Flex>
 
-        <Flex gap={4} justify="center" width="100%" height="48vh">
+        <Flex gap="0.8vw" justify="center" width="100%" height="50%">
           <Box
             flex="1"
             display="flex"
             flexDirection="column"
             alignItems="center"
-            minW="200px"
+            minW="49vw"
             overflow="auto"
             bgColor="lightgray"
           >
@@ -72,7 +72,7 @@ const BudgetTracker: React.FC = () => {
             display="flex"
             flexDirection="column"
             alignItems="center"
-            minW="200px"
+            minW="49vw"
             overflow="auto"
             bgColor="lightskyblue"
           >

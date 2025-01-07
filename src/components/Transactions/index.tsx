@@ -71,18 +71,18 @@ const Transactions = () => {
         variants={fadeInVariants}
         style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
       >
-        <VStack spacing={4} width="100%" maxW="400px">
-          <Text fontSize="xl" fontWeight="bold">
+        <VStack spacing="1vw" width="100%" maxW="21vw">
+          <Text fontSize="1.05vw" fontWeight="bold">
             Transactions
           </Text>
           {newTransactionStatus && (
             <VStack
-              spacing={4}
+              spacing="0.8vw"
               width="100%"
-              maxW="400px"
-              p={4}
+              maxW="21vw"
+              p="0.8vw"
               borderWidth="1px"
-              borderRadius="md"
+              borderRadius="0.3vw"
               boxShadow="md"
               bgColor="#FFFFFF"
             >
@@ -94,10 +94,14 @@ const Transactions = () => {
                 <ExpenseForm />
               ) : null}
 
-              <HStack spacing={4} width="100%">
+              <HStack spacing="0.8vw" width="100%">
                 <Button
                   colorScheme="blue"
                   width="50%"
+                  m={0}
+                  p={0}
+                  fontSize="0.83vw"
+                  borderRadius="0.3vw"
                   onClick={() => saveTransaction()}
                 >
                   Save
@@ -105,6 +109,10 @@ const Transactions = () => {
                 <Button
                   colorScheme="blue"
                   width="50%"
+                  m={0}
+                  p={0}
+                  fontSize="0.83vw"
+                  borderRadius="0.3vw"
                   variant="outline"
                   onClick={handleCancelTransaction}
                 >
@@ -114,16 +122,16 @@ const Transactions = () => {
             </VStack>
           )}
 
-          <HStack spacing={4}>
+          <HStack spacing="0.9vw">
             <Button
               id={TutorialTargets.IncomeTransactionButton}
               variant="solid"
               borderRadius="50%"
-              border="5px solid green"
+              border="0.28vw solid green"
               bgColor="#FFFFFF"
               color="green"
-              width="120px"
-              height="120px"
+              width="6.5vw"
+              height="6.25vw"
               padding={0}
               display="flex"
               alignItems="center"
@@ -132,17 +140,17 @@ const Transactions = () => {
               onClick={(e) => addNewTransactionHandler(e)}
               isDisabled={newTransactionStatus !== null}
             >
-              <AddIcon boxSize={8} />
+              <AddIcon boxSize="1.6vw" />
             </Button>
             <Button
               id={TutorialTargets.TransferTransactionButton}
               variant="solid"
               borderRadius="25%"
-              border="5px solid gray"
+              border="0.28vw solid gray"
               bgColor="#FFFFFF"
               color="gray"
-              width="120px"
-              height="90px"
+              width="6.5vw"
+              height="4.5vw"
               padding={0}
               display="flex"
               alignItems="center"
@@ -151,17 +159,17 @@ const Transactions = () => {
               onClick={(e) => addNewTransactionHandler(e)}
               isDisabled={newTransactionStatus !== null}
             >
-              <RepeatIcon boxSize={8} />
+              <RepeatIcon boxSize="1.6vw" />
             </Button>
             <Button
               id={TutorialTargets.ExpenseTransactionButton}
               variant="solid"
               borderRadius="50%"
-              border="5px solid red"
+              border="0.28vw solid red"
               bgColor="#FFFFFF"
               color="red"
-              width="120px"
-              height="120px"
+              width="6.5vw"
+              height="6.25vw"
               padding={0}
               display="flex"
               alignItems="center"
@@ -170,7 +178,7 @@ const Transactions = () => {
               onClick={(e) => addNewTransactionHandler(e)}
               isDisabled={newTransactionStatus !== null}
             >
-              <MinusIcon boxSize={8} />
+              <MinusIcon boxSize="1.6vw" />
             </Button>
           </HStack>
         </VStack>

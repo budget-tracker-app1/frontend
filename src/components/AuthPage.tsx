@@ -35,7 +35,7 @@ const AuthPage: React.FC = () => {
         position="relative"
         height="100vh"
         overflowY="hidden"
-        p={8}
+        p="2vw"
         background="linear-gradient(135deg, #a8ff78, #78ffd6)"
       >
         <Button

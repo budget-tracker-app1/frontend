@@ -100,29 +100,40 @@ const RegisterForm: React.FC = () => {
   };
 
   return (
-    <Flex height="100vh" justifyContent="center" alignItems="center">
+    <Flex
+      position="relative"
+      top="-2vw"
+      height="100%"
+      justifyContent="center"
+      alignItems="center"
+    >
       <Box
-        width="400px"
+        width="23vw"
         mx="auto"
-        p="6"
+        p="1.5vw"
         bgColor="#e6e6e6"
         boxShadow="2xl"
-        borderRadius="md"
+        borderRadius="0.5vw"
         borderWidth="1px"
       >
-        <Heading mb="6" size="lg" textAlign="center">
+        <Heading mb="1.1vw" fontSize="1.6vw" textAlign="center">
           Register
         </Heading>
         <form onSubmit={handleSubmit}>
-          <Stack spacing={4}>
+          <Stack spacing="1vw">
             <FormControl id="username" isRequired>
-              <FormLabel>Username</FormLabel>
+              <FormLabel fontSize="0.9vw" mb="0.3vw">
+                Username
+              </FormLabel>
               <Input
                 type="text"
+                height="2.4vw"
                 value={username}
                 maxLength={32}
                 bgColor="#FFFFFF"
                 boxShadow="md"
+                borderRadius="0.4vw"
+                fontSize="1vw"
                 _focus={{
                   boxShadow: "lg",
                   outline: "none",
@@ -133,13 +144,18 @@ const RegisterForm: React.FC = () => {
             </FormControl>
 
             <FormControl id="password" isRequired>
-              <FormLabel>Password</FormLabel>
+              <FormLabel fontSize="0.9vw" mb="0.3vw">
+                Password
+              </FormLabel>
               <Input
                 type="password"
+                height="2.4vw"
                 value={password}
                 maxLength={32}
                 bgColor="#FFFFFF"
                 boxShadow="md"
+                borderRadius="0.4vw"
+                fontSize="1vw"
                 _focus={{
                   boxShadow: "lg",
                   outline: "none",
@@ -150,13 +166,18 @@ const RegisterForm: React.FC = () => {
             </FormControl>
 
             <FormControl id="confirm-password" isRequired>
-              <FormLabel>Confirm Password</FormLabel>
+              <FormLabel fontSize="0.9vw" mb="0.3vw">
+                Confirm Password
+              </FormLabel>
               <Input
                 type="password"
+                height="2.4vw"
                 value={confirmPassword}
                 maxLength={32}
                 bgColor="#FFFFFF"
                 boxShadow="md"
+                borderRadius="0.4vw"
+                fontSize="1vw"
                 _focus={{
                   boxShadow: "lg",
                   outline: "none",
@@ -169,9 +190,12 @@ const RegisterForm: React.FC = () => {
             <Button
               colorScheme="teal"
               type="submit"
-              width="full"
+              width="100%"
+              height="2.4vw"
               boxShadow="lg"
-              mt="30px"
+              borderRadius="0.4vw"
+              fontSize="0.9vw"
+              mt="1.5vw"
               isLoading={isLoading}
             >
               Register

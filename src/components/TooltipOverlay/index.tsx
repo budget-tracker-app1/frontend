@@ -91,37 +91,41 @@ const TooltipOverlay: React.FC<TooltipOverlayProps> = ({
           zIndex="1200"
           bg="#fff8dc"
           color="black"
-          p={4}
-          borderRadius="md"
+          p="0.9vw"
+          borderRadius="0.3vw"
           shadow="lg"
           top={`${tooltipPosition.top}px`}
           left={`${tooltipPosition.left}px`}
           transform="translateX(-50%)"
           border="1px solid #f0e68c"
-          fontSize="lg"
+          fontSize="0.94vw"
           fontWeight="medium"
           textAlign="center"
-          maxW="300px"
+          maxW="15.63vw"
         >
           {steps[currentStep].message}
 
           {/* Buttons */}
-          <HStack spacing={4} mt={4} justify="center">
+          <HStack spacing="1vw" mt="0.8vw" justify="center">
             {currentStep !== steps.length - 1 &&
               <Button
-                size="sm"
+                h="1.68vw"
                 colorScheme="red"
                 variant="outline"
                 flex="1"
+                fontSize="0.73vw"
+                borderRadius="0.3vw"
                 onClick={onSkip}
               >
                 Skip
               </Button>
             }
             <Button
-              size="sm"
+              h="1.68vw"
               colorScheme="teal"
               flex="1"
+              fontSize="0.73vw"
+              borderRadius="0.3vw"
               onClick={onNext}
             >
               {currentStep === steps.length - 1 ? "Understood" : `${"Next " + (currentStep + 1) + "/" + steps.length}`}

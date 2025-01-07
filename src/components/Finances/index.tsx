@@ -13,7 +13,7 @@ const Finances = () => {
 
   return (
     <>
-      <Text fontSize="xl" fontWeight="bold">
+      <Text fontSize="1.1vw" fontWeight="bold">
         Finances
       </Text>
       {!isCategoriesLoading && !isTransactionsLoading ? (
@@ -24,9 +24,9 @@ const Finances = () => {
           style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
         >
           <HStack
-            spacing={4}
+            spacing="2vw"
             width="100%"
-            maxW="900px"
+            maxW="46.88vw"
             margin="0 auto"
             justifyContent="space-around"
             alignItems="flex-start"

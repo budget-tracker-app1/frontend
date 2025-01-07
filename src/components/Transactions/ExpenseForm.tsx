@@ -78,7 +78,7 @@ const ExpenseForm = () => {
   return (
     <>
       <FormLabel>New {newTransactionStatus?.toLowerCase()}</FormLabel>
-      <HStack spacing={4} width="100%">
+      <HStack spacing="0.9vw" width="100%">
         <FormControl id="account">
           <Select
             placeholder={"Select account"}
@@ -92,7 +92,7 @@ const ExpenseForm = () => {
             ))}
           </Select>
           {leftCategoryError && (
-            <Text color="red.500" fontSize="sm" mb={"-1rem"}>
+            <Text color="red.500" fontSize="0.7vw" mb={"-0.75vw"}>
               {leftCategoryError}
             </Text>
           )}
@@ -111,7 +111,7 @@ const ExpenseForm = () => {
             ))}
           </Select>
           {rightCategoryError && (
-            <Text color="red.500" fontSize="sm" mb={"-1rem"}>
+            <Text color="red.500" fontSize="0.7vw" mb={"-0.75vw"}>
               {rightCategoryError}
             </Text>
           )}
@@ -129,7 +129,7 @@ const ExpenseForm = () => {
           onChange={handleAmountChange}
         />
         {amountError && (
-          <Text color="red.500" fontSize="sm" mb={"-1rem"}>
+          <Text color="red.500" fontSize="0.7vw" mb={"-0.75vw"}>
             {amountError}
           </Text>
         )}

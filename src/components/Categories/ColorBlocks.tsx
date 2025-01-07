@@ -43,17 +43,17 @@ const ColorBlocks = () => {
 
   return (
     <>
-      <Wrap spacing={2} w="100%" maxW="100%" justify="center">
+      <Wrap spacing="0.42vw" w="100%" maxW="100%" justify="center">
         {filteredColors.map((color) => (
           <WrapItem key={color}>
             <Box
               key={color}
-              w="20px"
-              h="20px"
+              w="1.05vw"
+              h="1.05vw"
               bg={color}
-              borderRadius="4px"
+              borderRadius="0.25vw"
               cursor="pointer"
-              border={categoryObj?.color === color ? "3px solid black" : "2px solid transparent"}
+              border={categoryObj?.color === color ? "0.15vw solid black" : "0.1vw solid transparent"}
               onClick={() => pickColorHandler(color)}
             />
           </WrapItem>

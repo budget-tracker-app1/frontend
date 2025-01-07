@@ -103,7 +103,7 @@ const CategoryInput = ({ category, bgcolor }: CategoryInputProps) => {
             (category.id && !exactCategoryId)) && (
             <IconButton
               aria-label="Edit"
-              icon={<EditIcon />}
+              icon={<EditIcon boxSize="0.72vw" />}
               size="sm"
               variant="ghost"
               onClick={() => editCategoryHandler(category)}
@@ -113,14 +113,14 @@ const CategoryInput = ({ category, bgcolor }: CategoryInputProps) => {
             <>
               <IconButton
                 aria-label="Save"
-                icon={<CheckIcon />}
+                icon={<CheckIcon boxSize="0.72vw" />}
                 size="sm"
                 variant="ghost"
                 onClick={() => saveEditedCategory(exactCategoryId)}
               />
               <IconButton
                 aria-label="Cancel"
-                icon={<CloseIcon />}
+                icon={<CloseIcon boxSize="0.72vw" />}
                 size="sm"
                 variant="ghost"
                 onClick={cancelEditCategory}
@@ -130,7 +130,7 @@ const CategoryInput = ({ category, bgcolor }: CategoryInputProps) => {
           {newCategoryStatus && !category.id && (
             <IconButton
               aria-label="Delete"
-              icon={<DeleteIcon />}
+              icon={<DeleteIcon boxSize="0.72vw" />}
               size="sm"
               variant="ghost"
               onClick={removeNewCategory}
