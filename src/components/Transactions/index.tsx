@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
 import { AddIcon, MinusIcon, RepeatIcon } from "@chakra-ui/icons";
 import { Button, HStack, Text, VStack } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import useBudgetTrackerStore from "../../store";
 import IncomeForm from "./IncomeForm";
 import TransferForm from "./TransferForm";
 import ExpenseForm from "./ExpenseForm";
-import usePostTransaction from "../../hooks/http/usePostTransaction";
 import { TutorialTargets } from "../../data/tourSteps";
 import { fadeInVariants } from "../../animation";
+import usePostTransaction from "../../hooks/http/usePostTransaction";
 
 export enum TransactionType {
   INCOME = "INCOME",
@@ -43,6 +43,7 @@ const Transactions = () => {
     setRightCategoryError,
     setAmountError,
   } = useBudgetTrackerStore();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { saveTransaction } = usePostTransaction();
 
   const addNewTransactionHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -57,6 +58,16 @@ const Transactions = () => {
   };
 
   const handleCancelTransaction = () => {
+    setTransactionObj({
+      leftCategory: null,
+      rightCategory: null,
+      type: null,
+      amount: 0,
+      description: null,
+      category_id: null,
+      status: "FAILED",
+      createdAt: new Date(),
+    });
     setNewTransactionStatus(null);
     setLeftCategoryError(null);
     setRightCategoryError(null);
@@ -69,57 +80,69 @@ const Transactions = () => {
         initial="hidden"
         animate="visible"
         variants={fadeInVariants}
-        style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+        style={{ width: "100%", display: "flex", justifyContent: "center" }}
       >
         <VStack spacing="1vw" width="100%" maxW="21vw">
           <Text fontSize="1.05vw" fontWeight="bold">
             Transactions
           </Text>
           {newTransactionStatus && (
-            <VStack
-              spacing="0.8vw"
-              width="100%"
-              maxW="21vw"
-              p="0.8vw"
-              borderWidth="1px"
-              borderRadius="0.3vw"
-              boxShadow="md"
-              bgColor="#FFFFFF"
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={fadeInVariants}
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
-              {newTransactionStatus === TransactionType.INCOME ? (
-                <IncomeForm />
-              ) : newTransactionStatus === TransactionType.TRANSFER ? (
-                <TransferForm />
-              ) : newTransactionStatus === TransactionType.EXPENSE ? (
-                <ExpenseForm />
-              ) : null}
+              <VStack
+                spacing="0.8vw"
+                width="100%"
+                maxW="21vw"
+                p="0.8vw"
+                borderWidth="1px"
+                borderRadius="0.3vw"
+                boxShadow="md"
+                bgColor="#FFFFFF"
+              >
+                {newTransactionStatus === TransactionType.INCOME ? (
+                  <IncomeForm />
+                ) : newTransactionStatus === TransactionType.TRANSFER ? (
+                  <TransferForm />
+                ) : newTransactionStatus === TransactionType.EXPENSE ? (
+                  <ExpenseForm />
+                ) : null}
 
-              <HStack spacing="0.8vw" width="100%">
-                <Button
-                  colorScheme="blue"
-                  width="50%"
-                  m={0}
-                  p={0}
-                  fontSize="0.83vw"
-                  borderRadius="0.3vw"
-                  onClick={() => saveTransaction()}
-                >
-                  Save
-                </Button>
-                <Button
-                  colorScheme="blue"
-                  width="50%"
-                  m={0}
-                  p={0}
-                  fontSize="0.83vw"
-                  borderRadius="0.3vw"
-                  variant="outline"
-                  onClick={handleCancelTransaction}
-                >
-                  Cancel
-                </Button>
-              </HStack>
-            </VStack>
+                <HStack spacing="0.8vw" width="100%">
+                  <Button
+                    colorScheme="blue"
+                    width="50%"
+                    m={0}
+                    p={0}
+                    fontSize="0.83vw"
+                    borderRadius="0.3vw"
+                    isLoading={isLoading}
+                    onClick={() => saveTransaction(setIsLoading)}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    colorScheme="blue"
+                    width="50%"
+                    m={0}
+                    p={0}
+                    fontSize="0.83vw"
+                    borderRadius="0.3vw"
+                    variant="outline"
+                    onClick={handleCancelTransaction}
+                  >
+                    Cancel
+                  </Button>
+                </HStack>
+              </VStack>
+            </motion.div>
           )}
 
           <HStack spacing="0.9vw">
