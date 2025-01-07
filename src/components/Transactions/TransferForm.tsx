@@ -6,10 +6,11 @@ import {
   Select,
   Text,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import useBudgetTrackerStore from "../../store";
 import useCategories from "../../hooks/general/useCategories";
 import { ITransaction } from ".";
+import { handleDescription } from "../../utils/handleDescription";
 
 const TransferForm = () => {
   const {
@@ -23,7 +24,7 @@ const TransferForm = () => {
   const { accountCategories } = useCategories();
 
   const handleSelectBoxChange = (
-    e: React.ChangeEvent<HTMLSelectElement>,
+    e: ChangeEvent<HTMLSelectElement>,
     index: string
   ) => {
     const { value } = e.target;
@@ -46,7 +47,7 @@ const TransferForm = () => {
     }
   };
 
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
     let input = e.target.value;
 
     // if (/[^0-9.]/.test(input)) {
@@ -136,7 +137,12 @@ const TransferForm = () => {
       </FormControl>
 
       <FormControl id="description">
-        <Input type="text" placeholder="Enter description" />
+        <Input
+          type="text"
+          placeholder="Enter description"
+          maxLength={255}
+          onChange={(e) => handleDescription(e)}
+        />
       </FormControl>
     </>
   );
