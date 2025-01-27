@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo } from "react";
-import { Box, Button, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Heading, Image, Link, Text } from "@chakra-ui/react";
 import "./../App.css";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
+import githubLogo from "./../assets/img/github.png";
 
 const AuthPage: React.FC = () => {
   const navigate = useNavigate();
@@ -38,6 +39,31 @@ const AuthPage: React.FC = () => {
         p="2vw"
         background="linear-gradient(135deg, #a8ff78, #78ffd6)"
       >
+        <Link href="https://github.com/budget-tracker-app1" isExternal>
+          <Button
+            position="relative"
+            boxShadow="lg"
+            fontSize="0.82vw"
+            bgColor="#FFFFFF"
+            marginRight="1vw"
+            padding="0.4vw"
+            zIndex={10}
+            sx={{
+              height: "2vw",
+              borderRadius: "0.35vw",
+            }}
+            _hover={{
+              bgColor: "#FFFFFF",
+            }}
+          >
+            <Image
+              src={githubLogo}
+              alt="Button Icon"
+              width="inherit"
+              height="inherit"
+            />
+          </Button>
+        </Link>
         <Button
           onClick={toggleForm}
           position="relative"
